@@ -41,18 +41,6 @@
 | Phase 4 | Frontend development (React) | — | ⬜ |
 | Phase 5 | Testing & documentation | — | ⬜ |
 
----
-
-## 🎯 Roles & Responsibilities
-
-> _(To be completed — assign specific tasks to each team member)_
-
-| Member | Responsibilities |
-|--------|------------------|
-| AbouelFetouh Ashraf Moussa (Team Leader) | Project coordination, backend architecture, code review |
-| Ahmed El-Jazzar | Backend development (APIs, authentication) |
-| Ahmed Abdel-Mardhi | Database design & frontend integration |
-| Hazem Mahmoud El-Sayed | Frontend development (UI/UX, React components) |
 
 ---
 
