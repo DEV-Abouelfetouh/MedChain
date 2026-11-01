@@ -59,10 +59,7 @@
 
 - 🔐 **Role-Based Access Control (RBAC)** — Patients, Doctors, and Admins
 - 📁 **Medical Records Management** — Create, view, and share medical records securely
-- 🔗 **Hash-Chained Audit Log** — Every operation is recorded in a tamper-evident, digitally signed chain
-- ✅ **Integrity Verification** — Verify the audit trail at any time to detect tampering
 - 🤝 **Consent Management** — Patients control who can access their medical data
-- 🔒 **File Encryption** — Medical files are encrypted before storage
 
 ---
 
