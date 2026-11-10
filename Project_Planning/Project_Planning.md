@@ -24,9 +24,9 @@ MedChain is a web platform for managing the medical activity chain
 | M0 | Foundation Ready (Repo + ERD + API + Wireframes) | Week 1 |
 | M1 | Auth & Access Live | Week 3 |
 | M2 | Medical Records Live | Week 5 |
-| M3 | Prescription & Dispense Flow (Critical) | Week 7 |
-| M4 | Feature Complete (Audit + Admin) | Week 9 |
-| M5 | Delivery Ready (UAT + Docs + Demo) | Week 10 |
+| M3 |  | Week 7 |
+| M4 || Week 9 |
+| M5 || Week 10 |
 
 ## Risks (High Level)
 
