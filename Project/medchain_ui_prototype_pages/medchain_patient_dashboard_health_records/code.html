@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MedChain Patient Portal &amp; Dashboard</title>
+<!-- Google Fonts: Inter, Plus Jakarta Sans, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed-dim": "#bec6e0",
+            "surface-container-low": "#eff4ff",
+            "secondary": "#565e74",
+            "primary": "#00685f",
+            "on-secondary-fixed": "#131b2e",
+            "outline-variant": "#bcc9c6",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "surface-bright": "#f8f9ff",
+            "surface": "#f8f9ff",
+            "tertiary-container": "#316bf3",
+            "on-secondary": "#ffffff",
+            "error-container": "#ffdad6",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "inverse-surface": "#213145",
+            "inverse-primary": "#6bd8cb",
+            "background": "#f8f9ff",
+            "on-primary-fixed-variant": "#005049",
+            "surface-dim": "#cbdbf5",
+            "outline": "#6d7a77",
+            "surface-tint": "#006a61",
+            "primary-container": "#008378",
+            "on-tertiary-fixed": "#00174b",
+            "surface-container": "#e5eeff",
+            "on-surface-variant": "#3d4947",
+            "surface-container-highest": "#d3e4fe",
+            "on-background": "#0b1c30",
+            "surface-variant": "#d3e4fe",
+            "surface-container-high": "#dce9ff",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed": "#00201d",
+            "secondary-fixed": "#dae2fd",
+            "secondary-container": "#dae2fd",
+            "on-primary-container": "#f4fffc",
+            "on-secondary-container": "#5c647a",
+            "on-tertiary-container": "#fefcff",
+            "on-primary": "#ffffff",
+            "inverse-on-surface": "#eaf1ff",
+            "primary-fixed-dim": "#6bd8cb",
+            "on-error-container": "#93000a",
+            "on-surface": "#0b1c30",
+            "error": "#ba1a1a",
+            "on-secondary-fixed-variant": "#3f465c",
+            "on-error": "#ffffff",
+            "tertiary-fixed": "#dbe1ff",
+            "primary-fixed": "#89f5e7",
+            "tertiary": "#0051d5"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "gutter-mobile": "1rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "margin": "2rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2.5rem",
+            "margin-mobile": "1rem"
+          },
+          "fontFamily": {
+            "body-md": ["Inter"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"],
+            "headline-xl": ["Plus Jakarta Sans"],
+            "label-md": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "code-sm": ["JetBrains Mono"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "label-lg": ["Inter"],
+            "code-md": ["JetBrains Mono"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"]
+          },
+          "fontSize": {
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-xl-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "code-sm": ["11px", { "lineHeight": "14px", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+            "code-md": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen antialiased flex flex-col font-body-md">
+<!-- TOP APP BAR -->
+<header class="w-full h-16 px-gutter flex items-center justify-between sticky top-0 z-50 bg-surface-container-lowest border-b border-outline-variant shadow-sm">
+<!-- Brand Anchor & Search / Title -->
+<div class="flex items-center gap-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-2xl font-bold" data-icon="shield">shield</span>
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-primary">MedChain</span>
+</div>
+<div class="h-6 w-px bg-outline-variant hidden sm:block"></div>
+<div class="flex items-center gap-space-sm">
+<h1 class="font-headline-sm text-headline-sm text-on-surface">My Health Portal</h1>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-surface-container-low border border-outline-variant font-code-sm text-code-sm text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+          Patient (Verified)
+        </span>
+</div>
+</div>
+<!-- Right Side Actions: DID Wallet, Notifications, Profile -->
+<div class="flex items-center gap-space-md">
+<!-- DID Connection Status Badge -->
+<div class="hidden md:flex items-center gap-space-xs px-2.5 py-1.5 rounded-lg bg-surface-bright border border-outline-variant font-code-sm text-code-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-base" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-code-sm text-code-sm text-primary font-semibold">Wallet Connected</span>
+<span class="text-outline">·</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">did:medchain:pat:8842...31e</span>
+</div>
+<!-- Action Icons -->
+<div class="flex items-center gap-space-xs text-on-surface-variant">
+<button class="p-2 rounded-lg hover:bg-surface-container-low transition-colors duration-150 relative text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-xl" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-low transition-colors duration-150 text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-xl" data-icon="shield">shield</span>
+</button>
+</div>
+<div class="h-6 w-px bg-outline-variant hidden sm:block"></div>
+<!-- Patient Profile Pill -->
+<div class="flex items-center gap-space-sm pl-space-xs">
+<img alt="Sarah Jenkins Credential Avatar" class="w-9 h-9 rounded-full object-cover border border-outline-variant shadow-sm" data-alt="Close up professional portrait of patient Sarah Jenkins wearing clean neutral attire with soft ambient studio lighting, representing a verified healthcare portal user with biometric ID confirmation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXhNlEEb-2pUJ_78yy2oFz2sr_7mJlMBbHmaWUuqMOQJW-1TQHf8_efO0oYCTlZayqGyomYOSjEpyIEOqVoCOA4G_-Vj2vFblWeRMiWLc81Y8iw5rfw4wHIXv7RLNUxfy_mCWbZBU_gFYbS8uSGO29JYmz3zTNI_zSHieBfeBrM9cug7XxcjjFZ0zO3810_ZKxqa_0IifzXNSKja8cZm4aqZCA-YOimmyGgjia3AE"/>
+<div class="hidden lg:flex flex-col text-left">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Sarah Jenkins</span>
+<span class="font-code-sm text-code-sm text-outline">pat-verified#31e</span>
+</div>
+</div>
+</div>
+</header>
+<!-- BODY CONTENT WRAPPER WITH PINNED LEFT DRAWER -->
+<div class="flex-1 flex w-full">
+<!-- SIDE NAVIGATION DRAWER (Docked left-0, top-16) -->
+<aside class="w-64 shrink-0 fixed left-0 top-16 bottom-0 flex flex-col justify-between p-space-md z-40 bg-surface-container-lowest border-r border-outline-variant overflow-y-auto">
+<div class="space-y-6">
+<!-- Patient Identity Tile -->
+<div class="p-space-sm rounded-lg bg-surface-container-low border border-outline-variant">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-lg" data-icon="verified_user">verified_user</span>
+</div>
+<div class="overflow-hidden">
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate">Sarah Jenkins</p>
+<p class="font-code-sm text-code-sm text-outline truncate">DID: did:...8842</p>
+</div>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="space-y-1">
+<!-- Active Tab: Dashboard -->
+<a class="flex items-center gap-space-sm px-space-md py-2.5 bg-primary-container text-on-primary-container rounded-lg font-label-md text-label-md border-l-4 border-primary" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Inactive Tab: Medical Records -->
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="folder_shared">folder_shared</span>
+<span>Medical Records</span>
+</a>
+<!-- Inactive Tab: Prescriptions -->
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors justify-between" href="#">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-lg" data-icon="medication">medication</span>
+<span>Prescriptions</span>
+</div>
+<span class="px-1.5 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">1</span>
+</a>
+<!-- Inactive Tab: Consent Management -->
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="verified_user">verified_user</span>
+<span>Consent Management</span>
+</a>
+<!-- Inactive Tab: Doctors & Clinics -->
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="medical_services">medical_services</span>
+<span>Doctors &amp; Clinics</span>
+</a>
+<!-- Inactive Tab: Settings -->
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+</div>
+<!-- Side Drawer Footer & Emergency Kill Switch Notice -->
+<div class="pt-4 border-t border-outline-variant space-y-3">
+<div class="p-space-sm rounded-lg bg-surface-container-low border border-outline-variant">
+<div class="flex items-center justify-between text-outline mb-1">
+<span class="font-code-sm text-code-sm">Network Node</span>
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-primary font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+              Synchronized
+            </span>
+</div>
+<p class="font-code-sm text-code-sm text-on-surface-variant truncate">Block #14,892,104</p>
+</div>
+<button class="w-full flex items-center justify-center gap-space-xs py-2 bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:text-primary rounded-lg font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="history_edu">history_edu</span>
+<span>Full Cryptographic Log</span>
+</button>
+</div>
+</aside>
+<!-- MAIN VIEWPORT CONTAINER -->
+<main class="ml-64 flex-1 p-margin space-y-space-xl max-w-[1440px] w-full">
+<!-- 1. BREADCRUMB NAVIGATION -->
+<nav class="flex items-center gap-2 text-outline font-label-md text-label-md">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="text-outline-variant">/</span>
+<span class="text-on-surface font-semibold">Patient Dashboard</span>
+</nav>
+<!-- 2. WELCOME BANNER WITH CRYPTOGRAPHIC HEALTH PASS STATUS -->
+<section class="rounded-xl bg-surface-container-lowest border border-outline-variant p-space-lg shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-space-lg relative overflow-hidden">
+<div class="absolute -right-12 -top-12 w-48 h-48 rounded-full bg-surface-container-low pointer-events-none opacity-60"></div>
+<div class="space-y-space-xs max-w-2xl relative z-10">
+<div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-primary-container/10 border border-primary text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-sm" data-icon="shield">shield</span>
+            Zero-Knowledge Verifiable Identity
+          </div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">
+            Welcome back, Sarah
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            All biometric &amp; medical credentials synchronized with decentralized ledger. Your personal encrypted data vault remains under sovereign private key authority.
+          </p>
+</div>
+<!-- Health Pass QR / Ledger Sync Indicator -->
+<div class="flex items-center gap-space-md shrink-0 bg-surface-container-low border border-outline-variant p-space-md rounded-xl relative z-10">
+<div class="w-16 h-16 bg-surface-container-lowest p-1.5 rounded-lg border border-outline-variant flex items-center justify-center shadow-xs">
+<!-- Simulated Precision QR Code Matrix -->
+<div class="w-full h-full border border-primary/40 rounded flex flex-col justify-between p-1 bg-surface-container-lowest">
+<div class="flex justify-between">
+<div class="w-2.5 h-2.5 bg-primary rounded-xs"></div>
+<div class="w-2.5 h-2.5 bg-primary rounded-xs"></div>
+</div>
+<div class="flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-xs" data-icon="verified_user">verified_user</span>
+</div>
+<div class="flex justify-between">
+<div class="w-2.5 h-2.5 bg-primary rounded-xs"></div>
+<div class="w-1.5 h-1.5 bg-outline rounded-xs"></div>
+</div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">HealthPass v2.4 Active</span>
+</div>
+<p class="font-code-sm text-code-sm text-outline">TTL: 23h 48m remaining</p>
+<button class="font-label-sm text-label-sm text-primary hover:underline font-semibold flex items-center gap-0.5">
+<span>View Full Credential</span>
+<span class="material-symbols-outlined text-xs" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+<!-- 3. METRIC SUMMARY CARDS (4 Stats) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-lg">
+<!-- Stat 1: Total Medical Records -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-space-lg shadow-sm hover:border-outline transition-colors">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Total Medical Records</span>
+<div class="w-9 h-9 rounded-lg bg-surface-container-low text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-xl" data-icon="folder_shared">folder_shared</span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-headline-xl text-headline-xl text-on-surface font-bold">14</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold bg-primary-container/10 px-1.5 py-0.5 rounded">+2 this quarter</span>
+</div>
+<p class="font-code-sm text-code-sm text-outline mt-2 truncate">Merkle Root: 0x93f...b810</p>
+</div>
+<!-- Stat 2: Active Prescriptions -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-space-lg shadow-sm hover:border-outline transition-colors">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Active Prescriptions</span>
+<div class="w-9 h-9 rounded-lg bg-surface-container-low text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-xl" data-icon="medication">medication</span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-headline-xl text-headline-xl text-on-surface font-bold">3</span>
+<span class="font-label-sm text-label-sm text-error bg-error-container text-on-error-container px-2 py-0.5 rounded-full font-semibold">Action Needed</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 truncate">1 pending pharmacy dispense</p>
+</div>
+<!-- Stat 3: Active Doctor Consents -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-space-lg shadow-sm hover:border-outline transition-colors">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Active Doctor Consents</span>
+<div class="w-9 h-9 rounded-lg bg-surface-container-low text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-xl" data-icon="verified_user">verified_user</span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-headline-xl text-headline-xl text-on-surface font-bold">4</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">Granted scopes</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 truncate">Dr. Sarah Vance, Dr. Robert Chen</p>
+</div>
+<!-- Stat 4: Audit Log Events -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-space-lg shadow-sm hover:border-outline transition-colors">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Audit Log Events</span>
+<div class="w-9 h-9 rounded-lg bg-surface-container-low text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-xl" data-icon="history">history</span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-headline-xl text-headline-xl text-on-surface font-bold">28</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Live Log
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 truncate">Last accessed today 10:42 AM by St. Jude Clinic</p>
+</div>
+</section>
+<!-- TWO-COLUMN WORKSPACE: PRESCRIPTIONS & CONSENT WIDGET -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-lg">
+<!-- 4. SECTION 1: ACTIVE PRESCRIPTIONS & REFILLS (Spans 2 columns) -->
+<section class="lg:col-span-2 space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary" data-icon="medication">medication</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Active Prescriptions &amp; Refills</h3>
+</div>
+<a class="font-label-md text-label-md text-primary font-semibold hover:underline flex items-center gap-1" href="#">
+<span>View Pharmacy History</span>
+<span class="material-symbols-outlined text-base" data-icon="chevron_right">chevron_right</span>
+</a>
+</div>
+<div class="grid grid-cols-1 gap-space-md">
+<!-- Prescription Item 1: Amoxicillin (Pending Dispense) -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-space-lg shadow-sm border-l-4 border-l-primary flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="space-y-1">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Amoxicillin 500mg</span>
+<!-- Teal Status Pill -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-primary-container"></span>
+                    Pending Dispense
+                  </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">3x daily with meals</p>
+<div class="flex items-center gap-2 font-body-sm text-body-sm text-outline">
+<span class="text-on-surface-variant font-medium">Dr. Sarah Vance</span>
+<span>·</span>
+<span>St. Jude Medical</span>
+<span>·</span>
+<span class="font-code-sm text-code-sm text-outline">RxID: #MC-99412</span>
+</div>
+</div>
+<div class="shrink-0 flex items-center gap-space-sm">
+<button class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-on-primary hover:bg-primary-container rounded-lg font-label-md text-label-md font-semibold transition-colors duration-150 shadow-xs">
+<span class="material-symbols-outlined text-base" data-icon="qr_code_2">qr_code_2</span>
+<span>View QR Code</span>
+</button>
+</div>
+</div>
+<!-- Prescription Item 2: Lisinopril (Dispensed) -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-space-lg shadow-sm border-l-4 border-l-outline flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="space-y-1">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Lisinopril 10mg</span>
+<!-- Emerald Status Pill -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#F0FDF4] text-[#15803D] font-label-sm text-label-sm font-semibold border border-[#BBF7D0]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#22C55E]"></span>
+                    Dispensed
+                  </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">1x daily morning</p>
+<div class="flex items-center gap-2 font-body-sm text-body-sm text-outline">
+<span class="text-on-surface-variant font-medium">Dr. Michael Wu</span>
+<span>·</span>
+<span>Metro Cardiology</span>
+<span>·</span>
+<span class="text-secondary font-medium">Dispensed by CVS Pharmacy #421</span>
+</div>
+</div>
+<div class="shrink-0 flex items-center gap-space-sm">
+<button class="inline-flex items-center gap-1.5 px-3 py-2 bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:bg-surface-container-low rounded-lg font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="receipt_long">receipt_long</span>
+<span>Dispense Receipt</span>
+</button>
+</div>
+</div>
+<!-- Prescription Item 3: Metformin (Active Refill) -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-space-lg shadow-sm border-l-4 border-l-primary flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="space-y-1">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Metformin 850mg</span>
+<!-- Active Refill Pill -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-low text-primary font-label-sm text-label-sm font-semibold border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                    Active Refill
+                  </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">2x daily</p>
+<div class="flex items-center gap-2 font-body-sm text-body-sm text-outline">
+<span class="text-on-surface-variant font-medium">Dr. Sarah Vance</span>
+<span>·</span>
+<span>2 refills remaining</span>
+<span>·</span>
+<span class="font-code-sm text-code-sm text-outline">Expires Nov 2025</span>
+</div>
+</div>
+<div class="shrink-0 flex items-center gap-space-sm">
+<button class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-on-primary hover:bg-primary-container rounded-lg font-label-md text-label-md font-semibold transition-colors duration-150 shadow-xs">
+<span class="material-symbols-outlined text-base" data-icon="qr_code_2">qr_code_2</span>
+<span>View QR Code</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. CONSENT QUICK WIDGET (Side Panel) -->
+<aside class="space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary" data-icon="verified_user">verified_user</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Active Provider Access</h3>
+</div>
+<span class="font-code-sm text-code-sm text-primary font-semibold">4 Active</span>
+</div>
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-space-md shadow-sm space-y-space-md">
+<p class="font-body-sm text-body-sm text-outline">
+              Clinicians granted cryptographic decryption tokens to your health record ledger. Revocation is instantaneous on-chain.
+            </p>
+<div class="divide-y divide-surface-container space-y-3">
+<!-- Provider 1 -->
+<div class="pt-3 first:pt-0 flex items-start justify-between gap-space-sm">
+<div class="space-y-1">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">Dr. Sarah Vance</span>
+<span class="material-symbols-outlined text-primary text-sm" data-icon="verified">verified</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline">Internal Medicine · St. Jude</p>
+<span class="inline-block font-code-sm text-code-sm text-outline">Scope: Full Medical History</span>
+</div>
+<button class="px-2.5 py-1 rounded bg-[#FFF1F2] text-[#BE123C] border border-[#FECDD3] hover:bg-[#FEE2E2] font-label-sm text-label-sm font-semibold transition-colors shrink-0">
+                  Revoke Access
+                </button>
+</div>
+<!-- Provider 2 -->
+<div class="pt-3 flex items-start justify-between gap-space-sm">
+<div class="space-y-1">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">Dr. Michael Wu</span>
+<span class="material-symbols-outlined text-primary text-sm" data-icon="verified">verified</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline">Cardiology · Metro Heart</p>
+<span class="inline-block font-code-sm text-code-sm text-outline">Scope: Cardiac &amp; Labs</span>
+</div>
+<button class="px-2.5 py-1 rounded bg-[#FFF1F2] text-[#BE123C] border border-[#FECDD3] hover:bg-[#FEE2E2] font-label-sm text-label-sm font-semibold transition-colors shrink-0">
+                  Revoke Access
+                </button>
+</div>
+<!-- Provider 3 -->
+<div class="pt-3 flex items-start justify-between gap-space-sm">
+<div class="space-y-1">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">Dr. Robert Chen</span>
+<span class="material-symbols-outlined text-primary text-sm" data-icon="verified">verified</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline">Endocrinology · St. Jude</p>
+<span class="inline-block font-code-sm text-code-sm text-outline">Scope: Vitals &amp; Lab Panels</span>
+</div>
+<button class="px-2.5 py-1 rounded bg-[#FFF1F2] text-[#BE123C] border border-[#FECDD3] hover:bg-[#FEE2E2] font-label-sm text-label-sm font-semibold transition-colors shrink-0">
+                  Revoke Access
+                </button>
+</div>
+</div>
+<!-- Emergency Access Policy Banner -->
+<div class="p-space-sm rounded-lg bg-surface-container-low border border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="lock_open">lock_open</span>
+<span class="font-label-md text-label-md text-on-surface font-medium">Break-Glass Protocol</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Enabled</span>
+</div>
+</div>
+</aside>
+</div>
+<!-- 5. SECTION 2: RECENT MEDICAL RECORDS & CLINICAL ENCOUNTERS (High-Density Table) -->
+<section class="space-y-space-md">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary" data-icon="history_edu">history_edu</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Recent Medical Records &amp; Clinical Encounters</h3>
+<p class="font-body-sm text-body-sm text-outline">Cryptographically audited patient ledger blocks stored on IPFS &amp; Ethereum L2</p>
+</div>
+</div>
+<!-- Controls: Search & Filters -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Search Field -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-lg" data-icon="search">search</span>
+<input class="pl-9 pr-3 py-1.5 h-10 w-52 md:w-64 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface font-body-sm text-body-sm focus:border-primary focus:ring-1 focus:ring-primary outline-hidden transition-all" placeholder="Search encounters..." type="text"/>
+</div>
+<!-- Date Filter -->
+<button class="inline-flex items-center gap-1.5 px-3 py-2 h-10 bg-surface-container-lowest border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="calendar_today">calendar_today</span>
+<span>All Dates</span>
+<span class="material-symbols-outlined text-xs" data-icon="expand_more">expand_more</span>
+</button>
+<!-- Clinic Filter -->
+<button class="inline-flex items-center gap-1.5 px-3 py-2 h-10 bg-surface-container-lowest border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="local_hospital">local_hospital</span>
+<span>All Facilities</span>
+<span class="material-symbols-outlined text-xs" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Medical Records Table Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="py-3 px-space-md font-label-sm text-label-sm text-outline uppercase tracking-wider">Record Title</th>
+<th class="py-3 px-space-md font-label-sm text-label-sm text-outline uppercase tracking-wider">Attending Physician</th>
+<th class="py-3 px-space-md font-label-sm text-label-sm text-outline uppercase tracking-wider">Facility / Clinic</th>
+<th class="py-3 px-space-md font-label-sm text-label-sm text-outline uppercase tracking-wider">Date Recorded</th>
+<th class="py-3 px-space-md font-label-sm text-label-sm text-outline uppercase tracking-wider">Blockchain Hash</th>
+<th class="py-3 px-space-md font-label-sm text-label-sm text-outline uppercase tracking-wider">Status</th>
+<th class="py-3 px-space-md font-label-sm text-label-sm text-outline uppercase tracking-wider text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/50">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded bg-primary-container/20 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-base" data-icon="analytics">analytics</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface font-semibold">Annual Comprehensive Metabolic Panel</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-on-surface-variant">Dr. Sarah Vance</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-on-surface-variant">St. Jude Medical Clinic</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-outline">Oct 24, 2024</td>
+<td class="py-3.5 px-space-md font-code-sm text-code-sm text-primary">
+<span class="px-2 py-0.5 rounded bg-surface-container-low border border-outline-variant font-medium">0x8a7f...d91c</span>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#F0FDF4] text-[#15803D] font-label-sm text-label-sm font-semibold border border-[#BBF7D0]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#22C55E]"></span>
+                      Verified
+                    </span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 bg-surface-container-lowest border border-outline-variant text-primary hover:bg-primary-container hover:text-on-primary-container rounded-lg font-label-md text-label-md font-semibold transition-colors">
+<span>View Record</span>
+<span class="material-symbols-outlined text-xs" data-icon="open_in_new">open_in_new</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded bg-primary-container/20 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-base" data-icon="ecg_heart">ecg_heart</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface font-semibold">Echocardiogram &amp; Cardiac Stress Evaluation</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-on-surface-variant">Dr. Michael Wu</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-on-surface-variant">Metro Heart Institute</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-outline">Sep 12, 2024</td>
+<td class="py-3.5 px-space-md font-code-sm text-code-sm text-primary">
+<span class="px-2 py-0.5 rounded bg-surface-container-low border border-outline-variant font-medium">0x3f22...11b8</span>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#F0FDF4] text-[#15803D] font-label-sm text-label-sm font-semibold border border-[#BBF7D0]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#22C55E]"></span>
+                      Verified
+                    </span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 bg-surface-container-lowest border border-outline-variant text-primary hover:bg-primary-container hover:text-on-primary-container rounded-lg font-label-md text-label-md font-semibold transition-colors">
+<span>View Record</span>
+<span class="material-symbols-outlined text-xs" data-icon="open_in_new">open_in_new</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded bg-primary-container/20 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-base" data-icon="vaccines">vaccines</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface font-semibold">Seasonal Allergen &amp; Immunization Log</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-on-surface-variant">Dr. Elena Rostova</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-on-surface-variant">Valley Health</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-outline">Jul 04, 2024</td>
+<td class="py-3.5 px-space-md font-code-sm text-code-sm text-primary">
+<span class="px-2 py-0.5 rounded bg-surface-container-low border border-outline-variant font-medium">0x9b41...74ee</span>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#F0FDF4] text-[#15803D] font-label-sm text-label-sm font-semibold border border-[#BBF7D0]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#22C55E]"></span>
+                      Verified
+                    </span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 bg-surface-container-lowest border border-outline-variant text-primary hover:bg-primary-container hover:text-on-primary-container rounded-lg font-label-md text-label-md font-semibold transition-colors">
+<span>View Record</span>
+<span class="material-symbols-outlined text-xs" data-icon="open_in_new">open_in_new</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer Pagination and Hash Check -->
+<div class="p-space-md border-t border-outline-variant flex flex-col sm:flex-row items-center justify-between gap-space-sm bg-surface-container-lowest">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base" data-icon="lock">lock</span>
+<span class="font-code-sm text-code-sm text-outline">Consensus proof verified across 18 med-chain validator nodes</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-md text-label-md">
+<button class="px-2.5 py-1 rounded border border-outline-variant hover:bg-surface-container-low transition-colors disabled:opacity-40" disabled="">Previous</button>
+<span class="px-2 py-1 font-semibold text-primary">Page 1 of 5</span>
+<button class="px-2.5 py-1 rounded border border-outline-variant hover:bg-surface-container-low transition-colors">Next</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

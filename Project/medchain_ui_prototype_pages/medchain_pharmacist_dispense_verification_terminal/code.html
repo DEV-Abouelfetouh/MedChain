@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MedChain Pharmacist Dispense &amp; On-Chain Verification Terminal</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed-dim": "#bec6e0",
+            "surface-container-low": "#eff4ff",
+            "secondary": "#565e74",
+            "primary": "#00685f",
+            "on-secondary-fixed": "#131b2e",
+            "outline-variant": "#bcc9c6",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "surface-bright": "#f8f9ff",
+            "surface": "#f8f9ff",
+            "tertiary-container": "#316bf3",
+            "on-secondary": "#ffffff",
+            "error-container": "#ffdad6",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "inverse-surface": "#213145",
+            "inverse-primary": "#6bd8cb",
+            "background": "#f8f9ff",
+            "on-primary-fixed-variant": "#005049",
+            "surface-dim": "#cbdbf5",
+            "outline": "#6d7a77",
+            "surface-tint": "#006a61",
+            "primary-container": "#008378",
+            "on-tertiary-fixed": "#00174b",
+            "surface-container": "#e5eeff",
+            "on-surface-variant": "#3d4947",
+            "surface-container-highest": "#d3e4fe",
+            "on-background": "#0b1c30",
+            "surface-variant": "#d3e4fe",
+            "surface-container-high": "#dce9ff",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed": "#00201d",
+            "secondary-fixed": "#dae2fd",
+            "secondary-container": "#dae2fd",
+            "on-primary-container": "#f4fffc",
+            "on-secondary-container": "#5c647a",
+            "on-tertiary-container": "#fefcff",
+            "on-primary": "#ffffff",
+            "inverse-on-surface": "#eaf1ff",
+            "primary-fixed-dim": "#6bd8cb",
+            "on-error-container": "#93000a",
+            "on-surface": "#0b1c30",
+            "error": "#ba1a1a",
+            "on-secondary-fixed-variant": "#3f465c",
+            "on-error": "#ffffff",
+            "tertiary-fixed": "#dbe1ff",
+            "primary-fixed": "#89f5e7",
+            "tertiary": "#0051d5"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "gutter-mobile": "1rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "margin": "2rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2.5rem",
+            "margin-mobile": "1rem"
+          },
+          "fontFamily": {
+            "body-md": ["Inter"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"],
+            "headline-xl": ["Plus Jakarta Sans"],
+            "label-md": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "code-sm": ["JetBrains Mono"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "label-lg": ["Inter"],
+            "code-md": ["JetBrains Mono"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"]
+          },
+          "fontSize": {
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-xl-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "code-sm": ["11px", { "lineHeight": "14px", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+            "code-md": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface antialiased font-body-md text-body-md flex flex-col min-h-screen">
+<!-- TopNavBar (Shared Component Anchor) -->
+<header class="w-full h-16 px-gutter flex items-center justify-between sticky top-0 z-50 bg-surface-container-lowest border-b border-outline-variant shadow-sm">
+<!-- Brand & Location / Role -->
+<div class="flex items-center gap-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-2xl font-bold" data-icon="shield">shield</span>
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-primary">MedChain</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-lg bg-surface-container-high text-secondary border border-outline-variant ml-1">PHARMACY NODE</span>
+</div>
+<!-- Dispensary Info & Role Badge -->
+<div class="hidden lg:flex items-center gap-space-sm pl-4 border-l border-outline-variant">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md font-semibold text-on-surface">David Alvarez, PharmD</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant bg-surface-container-low px-1.5 py-0.5 rounded border border-outline-variant">Lic #RPH-84210</span>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-[#F0FDF4] text-[#15803D] border border-[#DCFCE7]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#22C55E]"></span>
+              Licensed Pharmacist (Dispenser)
+            </span>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant flex items-center gap-1">
+            Walgreens #1042 · DID: <span class="font-code-sm text-primary">did:medchain:pharm:1042...88f</span>
+<span class="material-symbols-outlined text-[13px] text-outline cursor-pointer hover:text-primary transition-colors" data-icon="content_copy">content_copy</span>
+</span>
+</div>
+</div>
+</div>
+<!-- Central Search & Global Links -->
+<div class="hidden xl:flex items-center gap-6">
+<nav class="flex items-center gap-6">
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors" href="#">Network Status</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors" href="#">Audit Explorer</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors" href="#">Emergency Access</a>
+</nav>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Block #18,942,019</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-lg transition-all" title="Notifications">
+<span class="material-symbols-outlined text-xl" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-lg transition-all" title="Security Credentials">
+<span class="material-symbols-outlined text-xl" data-icon="shield">shield</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-lg transition-all" title="Connected Hardware Wallet">
+<span class="material-symbols-outlined text-xl" data-icon="account_balance_wallet">account_balance_wallet</span>
+</button>
+</div>
+<div class="h-6 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 bg-primary text-on-primary rounded font-label-md text-label-md font-medium hover:bg-primary-container transition-all flex items-center gap-1.5 shadow-sm active:scale-95">
+<span class="material-symbols-outlined text-[16px]" data-icon="verified_user">verified_user</span>
+          Connect DID
+        </button>
+<button class="px-3 py-1.5 bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded font-label-md text-label-md hover:bg-surface-container-low transition-all active:scale-95">
+          Sign Out
+        </button>
+</div>
+</div>
+</header>
+<!-- Shell Wrapper with SideNav and Main Body -->
+<div class="flex flex-1 relative">
+<!-- SideNavBar (Shared Component Anchor) -->
+<aside class="w-64 fixed left-0 top-16 bottom-0 flex flex-col justify-between p-space-md z-40 bg-surface-container-lowest border-r border-outline-variant">
+<div>
+<!-- Node Identifier Header -->
+<div class="mb-4 pb-3 border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="local_pharmacy">local_pharmacy</span>
+<div>
+<div class="font-headline-sm text-headline-sm font-semibold text-primary">MedChain Node</div>
+<div class="font-code-sm text-code-sm text-on-surface-variant truncate max-w-[170px]" title="DID:0x71C...3a9F (Node Validator)">DID:0x71C...3a9F (Node Validator)</div>
+</div>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="space-y-1">
+<!-- Active: Dispense Terminal (Prescription Dispensing) -->
+<a class="flex items-center gap-space-sm px-space-md py-2.5 bg-primary-container text-on-primary-container rounded-lg font-label-md text-label-md border-l-4 border-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="medication">medication</span>
+<span>Dispense Terminal</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span>Verification Queue</span>
+<span class="ml-auto bg-surface-container-high text-on-surface font-code-sm text-code-sm px-1.5 py-0.2 rounded-full">3</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dispense Ledger &amp; History</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Drug Inventory</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+<span>Patient Consents</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="folder_shared">folder_shared</span>
+<span>Patient Health Records</span>
+</a>
+</nav>
+<!-- CTA in Sidebar -->
+<div class="mt-6 pt-4 border-t border-outline-variant">
+<button class="w-full py-2 px-3 bg-surface-container-low border border-outline-variant text-primary hover:bg-surface-container font-label-md text-label-md rounded flex items-center justify-center gap-2 transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="add_circle">add_circle</span>
+            Issue Cryptographic Record
+          </button>
+</div>
+</div>
+<!-- Footer Tab Items -->
+<div class="space-y-1 pt-4 border-t border-outline-variant">
+<a class="flex items-center gap-space-sm px-space-md py-2 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="settings">settings</span>
+<span>Security Settings</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="terminal">terminal</span>
+<span class="font-code-sm text-code-sm">System Protocol v2.4</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 flex-1 p-margin min-h-[calc(100vh-4rem)] pb-20">
+<!-- 1. Breadcrumb & Status Bar -->
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-2 text-label-sm font-label-sm text-secondary">
+<span class="hover:text-primary cursor-pointer">Pharmacy</span>
+<span class="text-outline-variant">/</span>
+<span class="hover:text-primary cursor-pointer">Dispense Terminal</span>
+<span class="text-outline-variant">/</span>
+<span class="text-primary font-semibold">Verification</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center gap-1.5 font-code-sm text-code-sm text-secondary bg-surface-container-low px-2 py-0.5 rounded border border-outline-variant">
+<span class="material-symbols-outlined text-[14px] text-primary" data-icon="hub">hub</span>
+            Smart Contract: 0x9B41...e304 (V3.2 Mainnet)
+          </span>
+<span class="font-code-sm text-code-sm text-secondary">Gas: 14 Gwei</span>
+</div>
+</div>
+<!-- 2. Prominent Code Verification Terminal (Top Section) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm mb-space-lg">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-3">
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="qr_code_scanner">qr_code_scanner</span>
+              Decentralized Dispense Terminal &amp; Verification
+            </h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+              Validate patient zero-knowledge access proofs, verify prescriber digital certificates, and trigger immutable cryptographic token settlement.
+            </p>
+</div>
+<div class="flex items-center gap-2 self-start md:self-auto">
+<span class="font-code-sm text-code-sm px-2.5 py-1 bg-surface-container-low rounded border border-outline-variant text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-[15px]" data-icon="lock">lock</span>
+              ZK-Snark Engine: Active
+            </span>
+</div>
+</div>
+<!-- Search / Scan Input Bar -->
+<div class="mt-4">
+<div class="relative flex items-center">
+<div class="absolute left-3.5 flex items-center pointer-events-none text-primary">
+<span class="material-symbols-outlined text-xl" data-icon="search">search</span>
+</div>
+<input class="w-full pl-11 pr-32 py-3 bg-surface-container-lowest border-2 border-primary rounded-lg font-code-md text-code-md text-on-surface shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Enter 12-digit Prescription Hash or Scan QR Code (e.g. MC-8849-2194-TX)..." type="text" value="MC-8849-2194-TX"/>
+<div class="absolute right-2 flex items-center gap-1.5">
+<button class="px-2.5 py-1.5 bg-surface-container text-on-surface-variant hover:text-primary rounded font-label-md text-label-md flex items-center gap-1 border border-outline-variant transition-colors" title="Scan with Optical Scanner">
+<span class="material-symbols-outlined text-[16px]" data-icon="photo_camera">photo_camera</span>
+                Scan QR
+              </button>
+<button class="px-3 py-1.5 bg-primary text-on-primary rounded font-label-md text-label-md hover:bg-primary-container transition-all">
+                Verify
+              </button>
+</div>
+</div>
+</div>
+<!-- Status & Cryptographic Proof Confirmation Pill -->
+<div class="mt-3 flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-surface-container-low">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-[#F0FDF4] text-[#15803D] border border-[#DCFCE7]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#22C55E]"></span>
+              Prescription Code Loaded: <span class="font-code-sm font-bold ml-1">MC-8849-2194-TX</span> [Valid &amp; Unclaimed]
+            </span>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded text-label-sm font-label-sm bg-surface-container-low text-primary border border-outline-variant font-semibold">
+<span class="material-symbols-outlined text-primary text-[15px]" data-icon="check_circle">check_circle</span>
+              Smart Contract Verification Passed · Zero-Knowledge Consent Proven
+            </span>
+<span class="font-code-sm text-code-sm text-secondary">Token ID: #98421</span>
+</div>
+</div>
+</div>
+<!-- 3. Prescription Inspection & Safety Check (Two Panels Bento Grid) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-lg">
+<!-- PANEL A: Prescription Details (Left 7 Cols) -->
+<div class="lg:col-span-7 bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm border-l-4 border-l-primary flex flex-col justify-between">
+<div>
+<!-- Panel Header -->
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="prescriptions">prescriptions</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Cryptographic Rx Specification</h2>
+</div>
+<span class="font-code-sm text-code-sm text-secondary bg-surface-container-low px-2 py-0.5 rounded border border-outline-variant">
+                State: Immutable Pending Dispense
+              </span>
+</div>
+<!-- Patient & Prescriber Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-3 bg-surface-bright rounded-lg border border-outline-variant">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider block">Patient Identity</span>
+<div class="font-label-lg text-label-lg font-bold text-on-surface mt-0.5">Sarah Jenkins</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span>DOB: 05/14/1988</span>
+<span class="text-outline-variant">·</span>
+<span class="font-code-sm text-code-sm text-primary">DID:0x932A...18B2</span>
+</div>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider block">Authorized Prescriber</span>
+<div class="font-label-lg text-label-lg font-bold text-on-surface mt-0.5">Dr. Sarah Vance, MD</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+<span>Lic: MD-99412-CA · St. Jude Medical Center</span>
+</div>
+</div>
+</div>
+<!-- Dates & Validity -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-5 py-2 border-y border-surface-container-high font-body-sm">
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">Prescribed Date</span>
+<span class="font-body-md text-body-md font-medium text-on-surface">Oct 24, 2024</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">Expiration Date</span>
+<span class="font-body-md text-body-md font-medium text-emerald-700 flex items-center gap-1">
+                  Nov 24, 2024
+                  <span class="font-label-sm text-label-sm px-1.5 py-0.2 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Active</span>
+</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">Refills Remaining</span>
+<span class="font-code-md text-code-md font-semibold text-on-surface">0 of 0 (None)</span>
+</div>
+</div>
+<!-- Core Medication Details -->
+<div class="space-y-3 mb-5">
+<div class="bg-surface-container-low p-4 rounded-lg border border-outline-variant">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider block">Prescribed Medication</span>
+<div class="font-headline-sm text-headline-sm font-bold text-primary mt-1 flex items-center justify-between">
+<span>Cefdinir 300mg Capsules</span>
+<span class="font-code-sm text-code-sm text-on-surface font-normal bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant">Oral Systemic</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3 pt-3 border-t border-outline-variant">
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">Quantity Prescribed</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">20 capsules</span>
+<span class="font-body-sm text-body-sm text-secondary block">10-day full treatment course</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">Patient Directions (Sig)</span>
+<span class="font-body-md text-body-md font-medium text-on-surface">Take 1 capsule twice daily for 10 days</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Doctor's Digital Signature Lock Block -->
+<div class="mt-4 pt-3 border-t border-outline-variant flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-surface-bright p-3 rounded-lg border border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="verified">verified</span>
+<div>
+<div class="font-label-md text-label-md font-semibold text-on-surface">Prescriber Cryptographic Signature</div>
+<div class="font-code-sm text-code-sm text-primary flex items-center gap-1">
+                  0x4f89...b7f1 
+                  <span class="text-secondary">(Cryptographically Validated via CA Medical Board Root)</span>
+</div>
+</div>
+</div>
+<span class="font-code-sm text-code-sm text-secondary bg-surface-container-lowest px-2 py-1 rounded border border-outline-variant self-start sm:self-center">
+              ECDSA-SECP256K1
+            </span>
+</div>
+</div>
+<!-- PANEL B: Safety & Dispense Validation (Right 5 Cols) -->
+<div class="lg:col-span-5 bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<!-- Panel Header -->
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="health_and_safety">health_and_safety</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Clinical Safety &amp; NDC</h2>
+</div>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+<span class="material-symbols-outlined text-[13px]" data-icon="verified">verified</span>
+                RxNorm Synced
+              </span>
+</div>
+<!-- Drug Interaction & Allergy Checks -->
+<div class="space-y-3 mb-5">
+<!-- No Interaction Alert -->
+<div class="p-3 rounded-lg bg-surface-bright border border-outline-variant flex items-start gap-2.5">
+<span class="material-symbols-outlined text-emerald-600 text-lg mt-0.5" data-icon="check_circle">check_circle</span>
+<div>
+<div class="font-label-md text-label-md font-semibold text-on-surface">Drug Interaction Evaluation</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                    No interaction detected with patient's chronic active regimen: <span class="font-medium text-on-surface">Lisinopril 10mg Oral</span>.
+                  </div>
+</div>
+</div>
+<!-- Amber Allergy Caution Banner -->
+<div class="p-3.5 rounded-lg bg-[#FFFBEB] border border-[#FDE68A] flex items-start gap-3">
+<span class="material-symbols-outlined text-[#B45309] text-xl mt-0.5" data-icon="warning">warning</span>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md font-bold text-[#92400E]">Allergy Warning &amp; Sensitivity Cross-Match</span>
+<span class="font-label-sm text-label-sm px-1.5 py-0.2 bg-[#FEF3C7] text-[#B45309] rounded border border-[#FDE68A] font-semibold">Caution</span>
+</div>
+<div class="font-body-sm text-body-sm text-[#78350F] mt-1">
+                    Patient has listed <span class="font-semibold underline">Penicillin allergy</span> — Cefdinir is a 3rd-gen Cephalosporin (cross-reactivity evaluated: <span class="font-semibold">LOW &lt;1%</span>).
+                  </div>
+<div class="font-code-sm text-code-sm text-[#92400E] mt-1.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="assignment_turned_in">assignment_turned_in</span>
+                    Clinical guideline overrides allowed with Pharmacist Counseling.
+                  </div>
+</div>
+</div>
+</div>
+<!-- NDC Code & Dispense Inventory Allocation -->
+<div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant mb-4">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider block">Target Product NDC</span>
+<div class="font-body-md text-body-md font-bold text-on-surface mt-1 flex items-center justify-between">
+<span>NDC 68180-712-11</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 bg-surface-container-lowest text-primary rounded border border-outline-variant">Lupin Pharma</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Cefdinir 300mg Capsules (Bottle of 60 in stock - Shelf Bay 4B)</p>
+<!-- Lot Number & Expiry Entry Fields -->
+<div class="grid grid-cols-2 gap-3 mt-3 pt-3 border-t border-outline-variant">
+<div>
+<label class="font-label-sm text-label-sm text-secondary block mb-1">Lot Number *</label>
+<div class="relative">
+<input class="w-full h-9 px-2.5 bg-surface-container-lowest border border-outline-variant rounded font-code-sm text-code-sm text-on-surface focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary" type="text" value="LN-2024-884"/>
+<span class="absolute right-2 top-2 material-symbols-outlined text-[15px] text-emerald-600" data-icon="done">done</span>
+</div>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-secondary block mb-1">Manufacturer Expiry *</label>
+<div class="relative">
+<input class="w-full h-9 px-2.5 bg-surface-container-lowest border border-outline-variant rounded font-code-sm text-code-sm text-on-surface focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary" type="text" value="08/2026"/>
+<span class="absolute right-2 top-2 material-symbols-outlined text-[15px] text-emerald-600" data-icon="event_available">event_available</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Precision QR Container for Handover Protocol -->
+<div class="p-3 bg-surface-bright rounded-lg border border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-surface-container-lowest border border-outline-variant rounded flex items-center justify-center p-1 shadow-sm">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="qr_code_2">qr_code_2</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">Handover Token Signature</span>
+<span class="font-code-sm text-code-sm text-on-surface font-semibold">HASH: 0x81FA...289C</span>
+<span class="font-label-sm text-label-sm text-emerald-700 block">Patient Pre-Authorized Session</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-secondary block">Session TTL</span>
+<span class="font-code-sm text-code-sm text-primary font-bold px-2 py-0.5 bg-surface-container-low rounded border border-outline-variant">14:28 min</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. Blockchain Action & Dispense Confirmation -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm mb-space-lg">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="gavel">gavel</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Dispensation Verification &amp; On-Chain Settlement</h2>
+</div>
+<span class="font-label-sm text-label-sm text-secondary">Required: 3 of 3 Physical &amp; Legal Checks</span>
+</div>
+<!-- Dispense Confirmation Checklist -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+<label class="flex items-start gap-3 p-3.5 bg-surface-bright border border-outline-variant rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors">
+<input checked="" class="mt-0.5 rounded text-primary focus:ring-primary w-4 h-4 border-outline-variant" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Physical Recipient Verified</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Government ID or verified patient biometric credential matches Sarah Jenkins.</span>
+</div>
+</label>
+<label class="flex items-start gap-3 p-3.5 bg-surface-bright border border-outline-variant rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors">
+<input checked="" class="mt-0.5 rounded text-primary focus:ring-primary w-4 h-4 border-outline-variant" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Counseling Completed</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Penicillin allergy cross-reactivity reviewed; full 10-day antibiotic course discussed.</span>
+</div>
+</label>
+<label class="flex items-start gap-3 p-3.5 bg-surface-bright border border-outline-variant rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors">
+<input checked="" class="mt-0.5 rounded text-primary focus:ring-primary w-4 h-4 border-outline-variant" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Bottle Seal &amp; Lot Verified</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">LN-2024-884 verified against manufacturer database; tamper seal inspected.</span>
+</div>
+</label>
+</div>
+<!-- Action Control Bar -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-outline-variant">
+<!-- Flag / Reject with dropdown -->
+<div class="flex items-center gap-2 w-full sm:w-auto">
+<select class="h-10 px-3 bg-surface-container-lowest border border-outline-variant text-on-surface-variant text-label-md font-label-md rounded focus:outline-none focus:ring-1 focus:ring-error focus:border-error">
+<option value="">Select Reason for Rejection...</option>
+<option value="allergy">Severe Allergy Contradiction</option>
+<option value="tamper">Packaging Tampered / Compromised</option>
+<option value="identity">Recipient ID Mismatch</option>
+<option value="forgery">Suspected Prescriber Compromise</option>
+<option value="stock">Out of Stock / NDC Unavailable</option>
+</select>
+<button class="h-10 px-4 bg-[#FFF1F2] text-[#BE123C] border border-[#FECDD3] rounded font-label-md text-label-md hover:bg-[#FEE2E2] transition-all flex items-center gap-1.5 active:scale-95 whitespace-nowrap">
+<span class="material-symbols-outlined text-[16px]" data-icon="block">block</span>
+              Flag / Reject Dispense
+            </button>
+</div>
+<!-- Primary & Secondary Blockchain Execution Controls -->
+<div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+<button class="h-10 px-4 bg-surface-container-lowest border border-outline-variant text-on-surface font-label-md text-label-md rounded hover:bg-surface-container-low transition-all flex items-center gap-1.5 active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="print">print</span>
+              Print Pharmacy Label &amp; Receipt
+            </button>
+<button class="h-10 px-5 bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-semibold rounded shadow-sm flex items-center gap-2 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[18px]" data-icon="verified_user">verified_user</span>
+              Cryptographically Dispense &amp; Sign Transaction
+            </button>
+</div>
+</div>
+</div>
+<!-- 5. Live Ledger Activity Footer -->
+<div class="p-3 bg-surface-container-lowest border border-outline-variant rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+<span class="font-label-md text-label-md text-on-surface-variant">Live Pharmacy Ledger Node Status:</span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium">Last dispensed: Amoxicillin 500mg (Tx 0x992...41a) 12 mins ago</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-code-sm text-code-sm text-secondary">Ledger Latency: 42ms</span>
+<a class="font-label-sm text-label-sm text-primary hover:underline flex items-center gap-1" href="#">
+            View Node Log
+            <span class="material-symbols-outlined text-[13px]" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</main>
+</div>
+</body></html>
