@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MedChain | Platform Admin Approvals &amp; Entity Management</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS & Theme Config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-error-container": "#93000a",
+            "surface-tint": "#006a61",
+            "on-tertiary": "#ffffff",
+            "on-primary-container": "#f4fffc",
+            "on-error": "#ffffff",
+            "on-primary-fixed-variant": "#005049",
+            "secondary": "#565e74",
+            "surface-container-highest": "#d3e4fe",
+            "inverse-primary": "#6bd8cb",
+            "on-primary-fixed": "#00201d",
+            "on-tertiary-fixed": "#00174b",
+            "surface-container": "#e5eeff",
+            "surface-container-lowest": "#ffffff",
+            "inverse-on-surface": "#eaf1ff",
+            "on-secondary-fixed-variant": "#3f465c",
+            "tertiary-container": "#316bf3",
+            "primary-container": "#008378",
+            "secondary-container": "#dae2fd",
+            "primary": "#00685f",
+            "primary-fixed-dim": "#6bd8cb",
+            "primary-fixed": "#89f5e7",
+            "secondary-fixed": "#dae2fd",
+            "on-surface-variant": "#3d4947",
+            "outline": "#6d7a77",
+            "on-secondary-fixed": "#131b2e",
+            "secondary-fixed-dim": "#bec6e0",
+            "surface": "#f8f9ff",
+            "background": "#f8f9ff",
+            "on-secondary": "#ffffff",
+            "on-background": "#0b1c30",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "surface-container-high": "#dce9ff",
+            "surface-variant": "#d3e4fe",
+            "outline-variant": "#bcc9c6",
+            "on-surface": "#0b1c30",
+            "on-primary": "#ffffff",
+            "surface-dim": "#cbdbf5",
+            "surface-container-low": "#eff4ff",
+            "tertiary-fixed": "#dbe1ff",
+            "error": "#ba1a1a",
+            "on-tertiary-container": "#fefcff",
+            "inverse-surface": "#213145",
+            "tertiary": "#0051d5",
+            "error-container": "#ffdad6",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "on-secondary-container": "#5c647a",
+            "surface-bright": "#f8f9ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xl": "2.5rem",
+            "space-md": "1rem",
+            "space-sm": "0.5rem",
+            "gutter-mobile": "1rem",
+            "gutter": "1.5rem",
+            "margin-mobile": "1rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "margin": "2rem"
+          },
+          "fontFamily": {
+            "headline-xl": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "code-sm": ["JetBrains Mono"],
+            "code-md": ["JetBrains Mono"],
+            "body-lg": ["Inter"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "label-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+            "code-sm": ["11px", { "lineHeight": "14px", "fontWeight": "400" }],
+            "code-md": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-xl-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased min-h-screen flex flex-col">
+<!-- TOP APP BAR / HEADER -->
+<header class="w-full h-16 px-gutter flex items-center justify-between sticky top-0 z-50 bg-surface-container-lowest border-b border-outline-variant shadow-sm">
+<!-- Brand Anchor & Node Info -->
+<div class="flex items-center gap-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[22px]">shield</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-primary">MedChain</span>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant uppercase tracking-wider font-semibold">Admin</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Platform Administration Node</span>
+</div>
+</div>
+<div class="hidden lg:flex items-center gap-space-sm pl-4 border-l border-outline-variant">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-low border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium">Mainnet Node #1 · 99.99% Consensus</span>
+</div>
+<div class="flex items-center gap-1 px-2 py-0.5 rounded bg-primary-container/10 border border-primary/20 text-primary">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+<span class="font-code-sm text-code-sm font-semibold">Root Validator</span>
+</div>
+</div>
+</div>
+<!-- Search in Top Bar -->
+<div class="hidden md:flex items-center flex-1 max-w-md mx-6">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-lg">search</span>
+<input class="w-full h-9 pl-9 pr-4 text-body-sm font-body-sm bg-surface-container-low border border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Search DID, NPI registry, TX hash or provider name..." type="text"/>
+</div>
+</div>
+<!-- Trailing Actions & Profile -->
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<button class="w-9 h-9 rounded flex items-center justify-center hover:bg-surface-container-low transition-colors duration-150 relative" title="Notifications">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-error"></span>
+</button>
+<button class="w-9 h-9 rounded flex items-center justify-center hover:bg-surface-container-low transition-colors duration-150" title="Security Monitor">
+<span class="material-symbols-outlined">shield</span>
+</button>
+<button class="w-9 h-9 rounded flex items-center justify-center hover:bg-surface-container-low transition-colors duration-150" title="Validator Vault">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</button>
+</div>
+<div class="h-6 w-px bg-outline-variant"></div>
+<!-- Lead Auditor Profile Badge -->
+<div class="flex items-center gap-space-sm pl-1">
+<div class="relative">
+<img class="w-9 h-9 rounded-full object-cover border border-outline-variant" data-alt="Close up clinical portrait of Lead Auditor Marcus Vance wearing a sterile high-collar medical uniform in a high-tech illuminated hospital telemetry center with cool teal ambient medical monitors in the soft background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4KADLlaqYqG-DUz6uXp4mEdmbMihGPYNxGH1p02vNxoB5SepLInF-mFpoUn2UGfNCvCqhUxiD0aj_spQ6pNMZ4krGF1TJAcjXXKrynZcRR2Rev4azeSOgvjcTJHOC1LhQ1QhDNnSb0UvJBIEh8QiJ5J0em3VHanlS2xUnt5Jk37ERWiz4-dH1b-MfK3PoNIYm4yY5aejymgO9VhQglNkpUM7-BSd4dhqICqtPyWg"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-primary border-2 border-surface-container-lowest"></span>
+</div>
+<div class="hidden xl:flex flex-col text-left">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Marcus Vance</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Lead Auditor · Key #0x71C</span>
+</div>
+<button class="ml-1 text-on-surface-variant hover:text-error transition-colors p-1" title="Sign Out">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+</button>
+</div>
+</div>
+</header>
+<!-- BODY WRAPPER (SIDEBAR + MAIN CANVAS) -->
+<div class="flex-1 flex overflow-hidden">
+<!-- LEFT SIDEBAR NAVIGATION -->
+<aside class="w-64 flex-shrink-0 bg-surface-container-lowest border-r border-outline-variant flex flex-col justify-between p-space-md hidden md:flex">
+<div class="space-y-6">
+<!-- Node Credentials Brief -->
+<div class="p-3 bg-surface-container-low rounded border border-outline-variant">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-base">verified</span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface uppercase">MedChain Node</span>
+</div>
+<p class="font-code-sm text-code-sm text-on-surface-variant truncate">DID:0x71C...3a9F (Node Validator)</p>
+<div class="mt-2 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary">Block Height</span>
+<span class="font-code-sm text-code-sm font-semibold text-primary">#4,892,104</span>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="space-y-1">
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span>Overview &amp; Telemetry</span>
+</a>
+<!-- Active Page: Pending Approvals -->
+<a class="flex items-center justify-between px-space-md py-2.5 bg-primary-container text-on-primary-container rounded-lg font-label-md text-label-md border-l-4 border-primary shadow-sm" href="#">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+<span class="font-semibold">Pending Approvals</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-error text-on-error font-code-sm text-[10px] font-bold">5</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">domain</span>
+<span>Clinics &amp; Hospitals</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">local_pharmacy</span>
+<span>Pharmacies Directory</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">manage_accounts</span>
+<span>User Access Management</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">history_edu</span>
+<span>Cryptographic Audit Trail</span>
+</a>
+</nav>
+</div>
+<!-- Sidebar Footer -->
+<div class="pt-4 border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-space-sm px-space-md py-2 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span>Security Settings</span>
+</a>
+<div class="flex items-center justify-between px-space-md py-1.5 text-on-surface-variant font-code-sm text-code-sm">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">terminal</span>
+<span>System Protocol</span>
+</span>
+<span class="text-primary font-semibold">v2.4</span>
+</div>
+</div>
+</aside>
+<!-- MAIN VIEWPORT CANVAS -->
+<main class="flex-1 overflow-y-auto bg-surface p-space-md md:p-margin">
+<div class="max-w-[1440px] mx-auto space-y-space-lg">
+<!-- BREADCRUMBS & SECTION TITLE -->
+<div>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-secondary mb-1">
+<span>Admin</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span>Governance</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-primary font-semibold">Pending Clinical Credentials</span>
+</div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">Provider Credential Verification &amp; Node Authorization</h1>
+<p class="font-body-md text-body-md text-secondary mt-1">Review state medical license registry proofs, NPI records, and cryptographic identity attestations before granting smart contract authority.</p>
+</div>
+<!-- Quick Batch Trigger -->
+<div class="flex items-center gap-2">
+<button class="h-9 px-3.5 bg-surface-container-lowest border border-outline-variant text-on-surface hover:bg-surface-container-low rounded font-label-md text-label-md flex items-center gap-1.5 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-sm">sync</span>
+<span>Poll State APIs</span>
+</button>
+<button class="h-9 px-4 bg-primary text-on-primary hover:bg-primary-container rounded font-label-md text-label-md font-semibold flex items-center gap-1.5 transition-colors shadow-sm" onclick="document.getElementById('signing-modal').classList.remove('hidden')">
+<span class="material-symbols-outlined text-sm">key</span>
+<span>Validator Keyring</span>
+</button>
+</div>
+</div>
+</div>
+<!-- EXECUTIVE KPI CARDS (4-Column Bento Row) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-secondary">Total Platform Users</span>
+<span class="w-8 h-8 rounded bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">groups</span>
+</span>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">18,429</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold flex items-center">
+<span class="material-symbols-outlined text-xs">trending_up</span> +12% this month
+              </span>
+</div>
+<div class="mt-2 text-on-surface-variant font-code-sm text-code-sm">Patients, Clinicians &amp; Admins</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-secondary">Active Certified Clinics</span>
+<span class="w-8 h-8 rounded bg-surface-container-low flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-lg">local_hospital</span>
+</span>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">342 Clinics</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">98.4% On-chain</span>
+</div>
+<div class="mt-2 text-on-surface-variant font-code-sm text-code-sm">Valid Federated Nodes</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-secondary">Accredited Pharmacies</span>
+<span class="w-8 h-8 rounded bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">medication</span>
+</span>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">1,208 Nodes</span>
+<span class="font-label-sm text-label-sm text-primary font-medium">Active Dispensing</span>
+</div>
+<div class="mt-2 text-on-surface-variant font-code-sm text-code-sm">NABP Verifications Synced</div>
+</div>
+<!-- KPI 4: Action Required -->
+<div class="bg-surface-container-lowest border-2 border-error/40 rounded-xl p-space-md shadow-sm relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 w-20 h-20 bg-error/5 rounded-full pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-error">Pending Approvals</span>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-code-sm text-code-sm font-bold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-ping"></span>
+                Action Required
+              </span>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="font-headline-md text-headline-md font-bold text-error">5 Applications</span>
+</div>
+<div class="mt-2 text-secondary font-code-sm text-code-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-error">warning</span>
+              Avg. wait time: 3.4 hrs
+            </div>
+</div>
+</div>
+<!-- SEARCH, FILTERS & CATEGORY TABS -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md shadow-sm space-y-4">
+<!-- Category Tabs -->
+<div class="flex flex-wrap items-center justify-between gap-4 border-b border-outline-variant pb-3">
+<div class="flex items-center gap-2">
+<button class="px-4 py-2 bg-primary text-on-primary rounded font-label-md text-label-md font-semibold flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-sm">stethoscope</span>
+<span>Physician &amp; Doctor Applications (3)</span>
+</button>
+<button class="px-4 py-2 bg-surface-container-low text-on-surface-variant hover:text-on-surface rounded font-label-md text-label-md font-medium flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-sm">prescriptions</span>
+<span>Pharmacist Applications (2)</span>
+</button>
+<button class="px-4 py-2 bg-surface-container-low text-on-surface-variant hover:text-on-surface rounded font-label-md text-label-md font-medium flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-sm">apartment</span>
+<span>Accredited Institutions</span>
+</button>
+</div>
+<div class="font-code-sm text-code-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">lock_clock</span>
+<span>Root Policy: Zero-Trust Multi-Sig Required</span>
+</div>
+</div>
+<!-- Filter Toolbar -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+<!-- Search Bar -->
+<div class="md:col-span-5 relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-base">search</span>
+<input class="w-full h-10 pl-9 pr-3 text-body-sm font-body-sm bg-surface-container-lowest border border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Search by applicant name, license number, or clinic..." type="text"/>
+</div>
+<!-- Jurisdiction Filter -->
+<div class="md:col-span-3">
+<select class="w-full h-10 px-3 text-body-sm font-body-sm bg-surface-container-lowest border border-outline-variant rounded text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+<option value="">Jurisdiction / State: All (United States)</option>
+<option value="CA">California Medical Board (CMB)</option>
+<option value="NY">New York State Office of the Professions</option>
+<option value="TX">Texas Medical Board (TMB)</option>
+<option value="FL">Florida Board of Medicine</option>
+</select>
+</div>
+<!-- Submission Date Filter -->
+<div class="md:col-span-2">
+<select class="w-full h-10 px-3 text-body-sm font-body-sm bg-surface-container-lowest border border-outline-variant rounded text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+<option value="">Submitted: Today</option>
+<option value="24h">Past 24 Hours</option>
+<option value="7d">Past 7 Days</option>
+<option value="all">All Pending</option>
+</select>
+</div>
+<!-- Reset / Export -->
+<div class="md:col-span-2 flex items-center justify-end gap-2">
+<button class="h-10 px-3 border border-outline-variant text-secondary hover:text-on-surface hover:bg-surface-container-low rounded text-label-md font-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">tune</span>
+<span>Filters</span>
+</button>
+<button class="h-10 px-3 border border-outline-variant text-secondary hover:text-on-surface hover:bg-surface-container-low rounded text-label-md font-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">download</span>
+</button>
+</div>
+</div>
+</div>
+<!-- VERIFICATION QUEUE: DETAILED HIGH-DENSITY REVIEW CARDS -->
+<div class="space-y-4">
+<!-- QUEUE CARD 1: Dr. Elena Rostova, MD (Ready for Authorization) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden hover:border-primary transition-colors">
+<!-- Accent Left Permanent Ledger Stripe -->
+<div class="border-l-4 border-primary p-space-md md:p-5">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<!-- Left: Candidate Profile & Badges -->
+<div class="flex items-start gap-4">
+<div class="relative">
+<img class="w-14 h-14 rounded-lg object-cover border border-outline-variant" data-alt="Studio medical headshot of Dr Elena Rostova MD wearing clinical scrubs and lab coat against a clean light slate clinical backdrop with natural soft light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChyW1BGhV4V83mv0QZHH91ttmozZmfu59_WmoZAOqaaGJr6es4D4DSAS2zCKwpe8lThDsa-IxKvnigbuH8o0suEzpV1vrnKWKBrlIeMV_PgYkcV-iksTZWX2Fsk-is2jzI3QW-3oaeJrv2MWAQ2Z2QjyODHLCGQO-PlKFVFNk1_ebEfH3VoJJ0YhRgKXp2hEHBU_x5gLVW-GptWGYO9mg_0ngsztlI7QeouQS02RM"/>
+<div class="absolute -bottom-1 -right-1 bg-surface-container-lowest rounded-full p-0.5 shadow">
+<span class="material-symbols-outlined text-primary text-base">check_circle</span>
+</div>
+</div>
+<div>
+<div class="flex flex-wrap items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Dr. Elena Rostova, MD</h3>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-secondary border border-outline-variant font-code-sm text-code-sm font-semibold">Clinician Node</span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        Ready for Authorization
+                      </span>
+</div>
+<div class="mt-1 flex flex-wrap items-center gap-y-1 gap-x-3 text-secondary font-body-sm text-body-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-primary">clinical_notes</span>
+                        Specialty: <strong class="text-on-surface font-medium">Neurology &amp; Internal Medicine</strong>
+</span>
+<span>•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">local_hospital</span>
+                        Clinic: <strong class="text-on-surface font-medium">Valley Health System (Node #301)</strong>
+</span>
+<span>•</span>
+<span class="flex items-center gap-1 font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                        Submitted: 2 hours ago
+                      </span>
+</div>
+</div>
+</div>
+<!-- Right: Action CTA Buttons -->
+<div class="flex items-center gap-2.5 flex-shrink-0">
+<button class="h-10 px-3.5 bg-surface-container-lowest border border-outline text-error hover:bg-error-container/30 rounded font-label-md text-label-md flex items-center gap-1.5 transition-colors" onclick="document.getElementById('rejection-modal').classList.remove('hidden')">
+<span class="material-symbols-outlined text-base">cancel</span>
+<span>Reject with Reason</span>
+</button>
+<button class="h-10 px-4 bg-primary text-on-primary hover:bg-primary-container rounded font-label-md text-label-md font-semibold flex items-center gap-1.5 transition-colors shadow-sm" onclick="openAuthorizeModal('Dr. Elena Rostova, MD', 'CA-MD-88319-A', 'Neurology &amp; Internal Medicine', 'did:medchain:doc:0x93b04c8f29402a7b88194a')">
+<span class="material-symbols-outlined text-base">verified</span>
+<span>Approve &amp; Issue Node Credential</span>
+</button>
+</div>
+</div>
+<!-- Technical Cryptographic & Registry Verification Grid -->
+<div class="mt-4 pt-4 border-t border-outline-variant grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 bg-surface-container-low/60 p-3 rounded-lg">
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">Medical License</span>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="font-code-md text-code-md font-semibold text-on-surface">CA-MD-88319-A</span>
+<span class="material-symbols-outlined text-primary text-sm" title="Cryptographically Validated">verified</span>
+</div>
+<span class="font-label-sm text-[10px] text-emerald-700 flex items-center gap-1 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Verified: California Medical Board
+                  </span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">National Provider Identifier (NPI)</span>
+<span class="font-code-md text-code-md font-semibold text-on-surface mt-0.5 block">1982049182</span>
+<span class="font-label-sm text-[10px] text-emerald-700 flex items-center gap-1 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Active CMS Registry Hash Match
+                  </span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">Applicant DID Public Key</span>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="font-code-sm text-code-sm text-on-surface font-mono">did:medchain:doc:0x93b...82a</span>
+<button class="text-secondary hover:text-primary" title="Copy DID"><span class="material-symbols-outlined text-xs">content_copy</span></button>
+</div>
+<span class="font-code-sm text-[10px] text-secondary mt-0.5 block">Secp256k1 Signature Verified</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">Delegated Access Scope</span>
+<span class="font-code-sm text-code-sm text-primary font-medium mt-0.5 block">Tier-1 Full Prescriptive &amp; Diagnostic</span>
+<span class="font-label-sm text-[10px] text-secondary mt-0.5 block">E-Prescribe Level 3 Included</span>
+</div>
+</div>
+</div>
+</div>
+<!-- QUEUE CARD 2: David Alvarez, PharmD (Ready for Authorization) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden hover:border-primary transition-colors">
+<div class="border-l-4 border-primary p-space-md md:p-5">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<!-- Left: Profile & Badges -->
+<div class="flex items-start gap-4">
+<div class="relative">
+<img class="w-14 h-14 rounded-lg object-cover border border-outline-variant" data-alt="Professional clinical headshot portrait of David Alvarez PharmD smiling wearing standard pharmacy clinical coat against crisp hospital dispensary shelves in soft focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaErbNEa3c5klwN96evpLTP9TcmA4cFhvym82EkfkGPDVB6j1iXV3md0snE9LqBY0s0r5bV6XnNaoiRl4yCsRLq16GtLLJjqHC0Nqz99CqPHV-FRQtBK4-2Ka1KiJjYQM3faeYO42K77nqTR1TLoR7vcsQ8CyDow2qAD_ieeIN8S7p88nxorg8zC8Me0-C0fdLyJRrh1EKMZ1z17urZuKtstlVnNASLMyHEqtjYjs"/>
+<div class="absolute -bottom-1 -right-1 bg-surface-container-lowest rounded-full p-0.5 shadow">
+<span class="material-symbols-outlined text-primary text-base">check_circle</span>
+</div>
+</div>
+<div>
+<div class="flex flex-wrap items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">David Alvarez, PharmD</h3>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-secondary border border-outline-variant font-code-sm text-code-sm font-semibold">Pharmacist Node</span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        Ready for Authorization
+                      </span>
+</div>
+<div class="mt-1 flex flex-wrap items-center gap-y-1 gap-x-3 text-secondary font-body-sm text-body-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-primary">badge</span>
+                        Role: <strong class="text-on-surface font-medium">Lead Pharmacist</strong>
+</span>
+<span>•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">storefront</span>
+                        Pharmacy: <strong class="text-on-surface font-medium">Walgreens Node #4120</strong>
+</span>
+<span>•</span>
+<span class="flex items-center gap-1 font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                        Submitted: 5 hours ago
+                      </span>
+</div>
+</div>
+</div>
+<!-- Right: Action CTA Buttons -->
+<div class="flex items-center gap-2.5 flex-shrink-0">
+<button class="h-10 px-3.5 bg-surface-container-lowest border border-outline text-error hover:bg-error-container/30 rounded font-label-md text-label-md flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-base">cancel</span>
+<span>Reject</span>
+</button>
+<button class="h-10 px-4 bg-primary text-on-primary hover:bg-primary-container rounded font-label-md text-label-md font-semibold flex items-center gap-1.5 transition-colors shadow-sm" onclick="openAuthorizeModal('David Alvarez, PharmD', 'CA-RPH-84210', 'Lead Dispensing Pharmacist', 'did:medchain:pharm:1042b938f0923a88f')">
+<span class="material-symbols-outlined text-base">verified</span>
+<span>Approve &amp; Issue Node Credential</span>
+</button>
+</div>
+</div>
+<!-- Technical Cryptographic & Registry Verification Grid -->
+<div class="mt-4 pt-4 border-t border-outline-variant grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 bg-surface-container-low/60 p-3 rounded-lg">
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">State Pharmacy License</span>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="font-code-md text-code-md font-semibold text-on-surface">CA-RPH-84210</span>
+<span class="material-symbols-outlined text-primary text-sm">verified</span>
+</div>
+<span class="font-label-sm text-[10px] text-emerald-700 flex items-center gap-1 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Automated NABP Verify: Active
+                  </span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">NABP e-Profile ID</span>
+<span class="font-code-md text-code-md font-semibold text-on-surface mt-0.5 block">10984128</span>
+<span class="font-label-sm text-[10px] text-emerald-700 flex items-center gap-1 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Clean Standing (Zero Sanctions)
+                  </span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">DID Identity Attestation</span>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="font-code-sm text-code-sm text-on-surface font-mono">did:medchain:pharm:1042...88f</span>
+<button class="text-secondary hover:text-primary"><span class="material-symbols-outlined text-xs">content_copy</span></button>
+</div>
+<span class="font-code-sm text-[10px] text-secondary mt-0.5 block">Linked to Walgreens Root #4120</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">Dispensing Clearance</span>
+<span class="font-code-sm text-code-sm text-primary font-medium mt-0.5 block">Schedule II-V Smart Dispensing</span>
+<span class="font-label-sm text-[10px] text-secondary mt-0.5 block">Token Burn Authority Active</span>
+</div>
+</div>
+</div>
+</div>
+<!-- QUEUE CARD 3: Dr. Aris Thorne, MD (Manual Review Needed) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+<!-- Accent Left Stripe: Warning Orange/Gold -->
+<div class="border-l-4 border-amber-500 p-space-md md:p-5">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<!-- Left: Profile & Warning Badge -->
+<div class="flex items-start gap-4">
+<div class="relative">
+<img class="w-14 h-14 rounded-lg object-cover border border-outline-variant" data-alt="Clinical portrait of orthopedic surgeon Dr Aris Thorne MD with serious thoughtful expression against clean modern hospital laboratory background in soft diffused lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiXJYYyXXzjliDleXtwj3paqirxzQf8Yj-sn2oqX5thKLFpGmxcNaOJ4kMZecuOXK7sABAAdvpZvXex52ydRmkKm0_7epkTx2RUoWbvfILYXTk-YxaHnwoPhCZnchIUr6o2O1C7Ay-ViYSwH1bz_Yg2fdfgaRlS-bflKoLemxcQxR6UFBaRKhm0CjonzE5Et0PY5EFvR12wKa9o1kQqd659gOIYIs8Sfj0E5dBOKk"/>
+<div class="absolute -bottom-1 -right-1 bg-surface-container-lowest rounded-full p-0.5 shadow">
+<span class="material-symbols-outlined text-amber-500 text-base">warning</span>
+</div>
+</div>
+<div>
+<div class="flex flex-wrap items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Dr. Aris Thorne, MD</h3>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-secondary border border-outline-variant font-code-sm text-code-sm font-semibold">Clinician Node</span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-300 font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                        Manual Review Needed
+                      </span>
+</div>
+<div class="mt-1 flex flex-wrap items-center gap-y-1 gap-x-3 text-secondary font-body-sm text-body-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-primary">healing</span>
+                        Specialty: <strong class="text-on-surface font-medium">Orthopedic Surgery</strong>
+</span>
+<span>•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">business</span>
+                        Clinic: <strong class="text-on-surface font-medium">Bayfront Ortho Surgical Center</strong>
+</span>
+<span>•</span>
+<span class="flex items-center gap-1 font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                        Submitted: 7 hours ago
+                      </span>
+</div>
+</div>
+</div>
+<!-- Right: Action CTA Buttons -->
+<div class="flex items-center gap-2.5 flex-shrink-0">
+<button class="h-10 px-3.5 bg-surface-container-lowest border border-outline-variant text-on-surface hover:bg-surface-container-low rounded font-label-md text-label-md flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-base">contact_mail</span>
+<span>Request Additional Proof</span>
+</button>
+<button class="h-10 px-3 border border-outline text-error hover:bg-error-container/30 rounded font-label-md text-label-md transition-colors">
+<span>Reject</span>
+</button>
+<button class="h-10 px-4 bg-surface-container-low border border-outline-variant text-on-surface-variant hover:text-on-surface rounded font-label-md text-label-md font-semibold flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-base">check</span>
+<span>Override &amp; Approve</span>
+</button>
+</div>
+</div>
+<!-- Issue Alert Callout Box -->
+<div class="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-2.5">
+<span class="material-symbols-outlined text-amber-600 mt-0.5">info</span>
+<div class="text-body-sm font-body-sm text-amber-900">
+<strong>Verification Warning: Name discrepancy detected.</strong> State registry lists middle initial <em>"Dr. Aris V. Thorne"</em>, whereas national cryptographic DID claims <em>"Dr. Aris Thorne"</em> without secondary suffix. Confirm photo government ID or secondary attestations prior to signing validator block.
+                </div>
+</div>
+<!-- Technical Cryptographic & Registry Verification Grid -->
+<div class="mt-3 pt-3 border-t border-outline-variant grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 bg-surface-container-low/60 p-3 rounded-lg">
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">New York Medical License</span>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="font-code-md text-code-md font-semibold text-on-surface">NY-MD-55201</span>
+<span class="material-symbols-outlined text-amber-600 text-sm">schedule</span>
+</div>
+<span class="font-label-sm text-[10px] text-amber-700 flex items-center gap-1 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Requires Name Reconciliation
+                  </span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">NPI Registry Lookup</span>
+<span class="font-code-md text-code-md font-semibold text-on-surface mt-0.5 block">1487920194</span>
+<span class="font-label-sm text-[10px] text-emerald-700 flex items-center gap-1 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Taxonomy: Orthopedic Spine (Match)
+                  </span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">Proposed DID Key</span>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="font-code-sm text-code-sm text-on-surface font-mono">did:medchain:doc:0x55a...39f</span>
+<button class="text-secondary hover:text-primary"><span class="material-symbols-outlined text-xs">content_copy</span></button>
+</div>
+<span class="font-code-sm text-[10px] text-secondary mt-0.5 block">Key Generated: 2025-02-14</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary block">Automated AI Risk Score</span>
+<span class="font-code-sm text-code-sm text-amber-700 font-bold mt-0.5 block">Score 62 / 100 (Flagged)</span>
+<span class="font-label-sm text-[10px] text-secondary mt-0.5 block">Requires Admin Human-in-Loop</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RECENT ON-CHAIN AUDIT LOG FOOTER TEASER -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">history</span>
+<h4 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Recent Validator Authorization Ledger</h4>
+</div>
+<a class="font-label-sm text-label-sm text-primary hover:underline font-semibold flex items-center gap-1" href="#">
+<span>View Cryptographic Audit Trail</span>
+<span class="material-symbols-outlined text-xs">arrow_forward</span>
+</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="border-b border-outline-variant font-label-sm text-label-sm text-secondary uppercase bg-surface-container-low">
+<th class="py-2.5 px-3">Block / Hash</th>
+<th class="py-2.5 px-3">Subject Name</th>
+<th class="py-2.5 px-3">Role Assigned</th>
+<th class="py-2.5 px-3">Authorized By</th>
+<th class="py-2.5 px-3">Execution Status</th>
+<th class="py-2.5 px-3 text-right">Timestamp</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-3 font-code-sm text-code-sm text-primary font-semibold">#4,892,103 · 0x8a92...fc11</td>
+<td class="py-3 px-3 font-medium text-on-surface">Dr. Ronald Kim, DO</td>
+<td class="py-3 px-3"><span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-sm text-xs">Clinician Primary</span></td>
+<td class="py-3 px-3 font-code-sm text-code-sm text-secondary">Root Validator #0x71C</td>
+<td class="py-3 px-3"><span class="inline-flex items-center gap-1 text-emerald-700 font-label-sm text-label-sm font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Confirmed L2</span></td>
+<td class="py-3 px-3 text-right font-code-sm text-code-sm text-secondary">38 mins ago</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-3 font-code-sm text-code-sm text-primary font-semibold">#4,892,088 · 0x33b1...aa04</td>
+<td class="py-3 px-3 font-medium text-on-surface">CVS Health Hub Node #12</td>
+<td class="py-3 px-3"><span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-sm text-xs">Pharmacy Institutional</span></td>
+<td class="py-3 px-3 font-code-sm text-code-sm text-secondary">Root Validator #0x71C</td>
+<td class="py-3 px-3"><span class="inline-flex items-center gap-1 text-emerald-700 font-label-sm text-label-sm font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Confirmed L2</span></td>
+<td class="py-3 px-3 text-right font-code-sm text-code-sm text-secondary">2 hours ago</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- INTERACTIVE MODAL 1: CREDENTIAL AUTHORIZATION & MULTI-SIG BROADCAST (Hidden by default, triggered via JS) -->
+<div class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden" id="signing-modal">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl max-w-xl w-full shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+<!-- Modal Header -->
+<div class="px-6 py-4 bg-surface-container-low border-b border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">verified</span>
+</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Issue Smart Contract Node Credential</h3>
+<p class="font-label-sm text-label-sm text-secondary">Root Validator Multi-Sig Authorization Protocol</p>
+</div>
+</div>
+<button class="text-secondary hover:text-on-surface" onclick="document.getElementById('signing-modal').classList.add('hidden')">
+<span class="material-symbols-outlined text-xl">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="p-6 space-y-4">
+<!-- Target Candidate Details -->
+<div class="p-3.5 bg-surface-container-low rounded-lg border border-outline-variant space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary">Applicant Name</span>
+<span class="font-headline-sm text-base font-bold text-on-surface" id="modal-candidate-name">Dr. Elena Rostova, MD</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary">Verified License / Authority</span>
+<span class="font-code-sm text-code-sm font-semibold text-primary" id="modal-license-id">CA-MD-88319-A (Medical Board of CA)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary">Assigned DID Registry Key</span>
+<span class="font-code-sm text-code-sm text-on-surface font-mono" id="modal-did-key">did:medchain:doc:0x93b04c8f...</span>
+</div>
+</div>
+<!-- Role & Scope Checkboxes -->
+<div class="space-y-2">
+<span class="font-label-md text-label-md font-semibold text-on-surface block">Assign Smart Contract Permissions:</span>
+<label class="flex items-start gap-2.5 p-2 rounded hover:bg-surface-container-low cursor-pointer border border-outline-variant/60">
+<input checked="" class="mt-0.5 rounded text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<div>
+<span class="font-label-md text-label-md font-medium text-on-surface block">EHR Write &amp; Signature Authority</span>
+<span class="font-body-sm text-body-sm text-secondary">Permits patient health record encryption &amp; clinical encounter committing.</span>
+</div>
+</label>
+<label class="flex items-start gap-2.5 p-2 rounded hover:bg-surface-container-low cursor-pointer border border-outline-variant/60">
+<input checked="" class="mt-0.5 rounded text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<div>
+<span class="font-label-md text-label-md font-medium text-on-surface block">E-Prescription Dispense Token Issuance</span>
+<span class="font-body-sm text-body-sm text-secondary">Authorizes cryptographically verifiable Schedule II-V digital prescriptions.</span>
+</div>
+</label>
+<label class="flex items-start gap-2.5 p-2 rounded hover:bg-surface-container-low cursor-pointer border border-outline-variant/60">
+<input class="mt-0.5 rounded text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<div>
+<span class="font-label-md text-label-md font-medium text-on-surface block">Emergency Break-Glass Delegate Permission</span>
+<span class="font-body-sm text-body-sm text-secondary">Subject to stringent time-bounded audit logging and patient alerting.</span>
+</div>
+</label>
+</div>
+<!-- Validator Passkey Signing Section -->
+<div class="p-3 bg-primary-container/10 border border-primary/30 rounded-lg">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-label-sm text-label-sm font-bold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">lock</span>
+              Signing with Validator HSM Key
+            </span>
+<span class="font-code-sm text-code-sm text-secondary">Key Slot: 0x71C...3a9F</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">This action will broadcast an immutable authorization transaction across MedChain Consortium L2 and pin verifiable credentials to decentralized storage.</p>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="px-6 py-4 bg-surface-container-low border-t border-outline-variant flex items-center justify-between">
+<button class="px-4 py-2 border border-outline-variant text-secondary hover:text-on-surface rounded font-label-md text-label-md" onclick="document.getElementById('signing-modal').classList.add('hidden')">
+          Cancel
+        </button>
+<button class="px-5 py-2.5 bg-primary text-on-primary hover:bg-primary-container rounded font-label-md text-label-md font-bold flex items-center gap-2 shadow transition-all active:scale-95" id="btn-broadcast" onclick="simulateBroadcast()">
+<span class="material-symbols-outlined text-base">draw</span>
+<span>Sign &amp; Broadcast Credential</span>
+</button>
+</div>
+</div>
+</div>
+<!-- INTERACTIVE MODAL 2: REJECT WITH REASON MODAL -->
+<div class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden" id="rejection-modal">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl max-w-lg w-full shadow-2xl overflow-hidden">
+<div class="px-6 py-4 bg-error-container/20 border-b border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-2 text-error">
+<span class="material-symbols-outlined">block</span>
+<h3 class="font-headline-sm text-headline-sm font-bold">Reject Provider Credential</h3>
+</div>
+<button class="text-secondary hover:text-on-surface" onclick="document.getElementById('rejection-modal').classList.add('hidden')">
+<span class="material-symbols-outlined text-xl">close</span>
+</button>
+</div>
+<div class="p-6 space-y-4">
+<p class="font-body-sm text-body-sm text-secondary">Specify the regulatory non-compliance or verification issue. An encrypted audit notification will be transmitted to the applicant's DID endpoint.</p>
+<div>
+<label class="font-label-md text-label-md font-medium text-on-surface block mb-1">Reason Code:</label>
+<select class="w-full h-10 px-3 border border-outline-variant rounded text-body-sm font-body-sm bg-surface-container-lowest">
+<option>License Sanction / Expired State Registration</option>
+<option>National NPI Database Mismatch</option>
+<option>DID Signature Proof Invalidation</option>
+<option>Incomplete DEA Prescribing Registration</option>
+<option>Other Forensic Security Concern</option>
+</select>
+</div>
+<div>
+<label class="font-label-md text-label-md font-medium text-on-surface block mb-1">Internal Auditor Justification:</label>
+<textarea class="w-full p-2.5 border border-outline-variant rounded text-body-sm font-body-sm bg-surface-container-lowest" placeholder="Provide audit trail documentation..." rows="3"></textarea>
+</div>
+</div>
+<div class="px-6 py-3.5 bg-surface-container-low border-t border-outline-variant flex items-center justify-end gap-2">
+<button class="px-4 py-2 border border-outline-variant rounded font-label-md text-label-md text-secondary" onclick="document.getElementById('rejection-modal').classList.add('hidden')">Cancel</button>
+<button class="px-4 py-2 bg-error text-on-error rounded font-label-md text-label-md font-bold" onclick="document.getElementById('rejection-modal').classList.add('hidden')">Confirm Rejection</button>
+</div>
+</div>
+</div>
+<!-- JAVASCRIPT LOGIC FOR MODALS & DYNAMIC BEHAVIORS -->
+<script>
+    function openAuthorizeModal(candidateName, licenseId, role, didKey) {
+      document.getElementById('modal-candidate-name').textContent = candidateName;
+      document.getElementById('modal-license-id').textContent = licenseId;
+      document.getElementById('modal-did-key').textContent = didKey;
+      document.getElementById('signing-modal').classList.remove('hidden');
+    }
+
+    function simulateBroadcast() {
+      const btn = document.getElementById('btn-broadcast');
+      const originalText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `
+        <span class="material-symbols-outlined text-base animate-spin">progress_activity</span>
+        <span>Signing Node Block...</span>
+      `;
+
+      setTimeout(() => {
+        btn.innerHTML = `
+          <span class="material-symbols-outlined text-base">check</span>
+          <span>Broadcast Confirmed!</span>
+        `;
+        setTimeout(() => {
+          document.getElementById('signing-modal').classList.add('hidden');
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        }, 800);
+      }, 1200);
+    }
+  </script>
+</body></html>

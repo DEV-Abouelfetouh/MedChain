@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MedChain | Smart Consent &amp; Granular Access Control</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Plus Jakarta Sans, Inter, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with configuration -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-error-container": "#93000a",
+            "surface-tint": "#006a61",
+            "on-tertiary": "#ffffff",
+            "on-primary-container": "#f4fffc",
+            "on-error": "#ffffff",
+            "on-primary-fixed-variant": "#005049",
+            "secondary": "#565e74",
+            "surface-container-highest": "#d3e4fe",
+            "inverse-primary": "#6bd8cb",
+            "on-primary-fixed": "#00201d",
+            "on-tertiary-fixed": "#00174b",
+            "surface-container": "#e5eeff",
+            "surface-container-lowest": "#ffffff",
+            "inverse-on-surface": "#eaf1ff",
+            "on-secondary-fixed-variant": "#3f465c",
+            "tertiary-container": "#316bf3",
+            "primary-container": "#008378",
+            "secondary-container": "#dae2fd",
+            "primary": "#00685f",
+            "primary-dark": "#0F766E",
+            "primary-darker": "#115E59",
+            "secondary-fixed": "#dae2fd",
+            "on-surface-variant": "#3d4947",
+            "outline": "#6d7a77",
+            "on-secondary-fixed": "#131b2e",
+            "secondary-fixed-dim": "#bec6e0",
+            "surface": "#f8f9ff",
+            "primary-fixed-dim": "#6bd8cb",
+            "primary-fixed": "#89f5e7",
+            "background": "#f8f9ff",
+            "on-secondary": "#ffffff",
+            "on-background": "#0b1c30",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "surface-container-high": "#dce9ff",
+            "surface-variant": "#d3e4fe",
+            "outline-variant": "#bcc9c6",
+            "on-surface": "#0b1c30",
+            "on-primary": "#ffffff",
+            "surface-dim": "#cbdbf5",
+            "surface-container-low": "#eff4ff",
+            "tertiary-fixed": "#dbe1ff",
+            "error": "#ba1a1a",
+            "on-tertiary-container": "#fefcff",
+            "inverse-surface": "#213145",
+            "tertiary": "#0051d5",
+            "error-container": "#ffdad6",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "on-secondary-container": "#5c647a",
+            "surface-bright": "#f8f9ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xl": "2.5rem",
+            "space-md": "1rem",
+            "space-sm": "0.5rem",
+            "gutter-mobile": "1rem",
+            "gutter": "1.5rem",
+            "margin-mobile": "1rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "margin": "2rem"
+          },
+          "fontFamily": {
+            "headline-xl": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "code-sm": ["JetBrains Mono"],
+            "code-md": ["JetBrains Mono"],
+            "body-lg": ["Inter"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "label-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+            "code-sm": ["11px", { "lineHeight": "14px", "fontWeight": "400" }],
+            "code-md": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-xl-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-outlined.fill-icon {
+      font-variation-settings: 'FILL' 1;
+    }
+    /* Clinical Ledger Accent Border */
+    .ledger-accent-teal {
+      border-left: 3px solid #00685f;
+    }
+    .ledger-accent-neutral {
+      border-left: 3px solid #bcc9c6;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased font-body-md text-body-md selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TOP APP BAR (Shared Component: TopNavBar Anchor) -->
+<header class="w-full h-16 px-gutter flex items-center justify-between sticky top-0 z-50 bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant shadow-sm">
+<!-- Left: Brand Logo & Context Anchor -->
+<div class="flex items-center gap-space-lg">
+<div class="flex items-center gap-space-sm cursor-pointer select-none">
+<div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-[20px]">enhanced_encryption</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-primary">MedChain</span>
+<span class="font-label-sm text-label-sm text-secondary -mt-1 tracking-wider uppercase font-semibold">Patient Portal</span>
+</div>
+</div>
+<!-- Quick Search Anchor -->
+<div class="hidden lg:flex items-center relative w-72">
+<span class="material-symbols-outlined absolute left-3 text-secondary text-[18px]">search</span>
+<input class="w-full h-9 pl-9 pr-space-md bg-surface-container-low border border-outline-variant rounded-lg text-body-sm placeholder:text-secondary focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-sm" placeholder="Search providers, tx hashes, DIDs..." type="text"/>
+</div>
+</div>
+<!-- Center: Primary Shared Navigation Links -->
+<nav class="hidden md:flex items-center gap-space-lg">
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors" href="#network">Network Status</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors" href="#audit">Audit Explorer</a>
+<a class="flex items-center gap-1.5 text-error font-label-md text-label-md hover:underline transition-colors" href="#emergency">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+        Emergency Access
+      </a>
+</nav>
+<!-- Right: DID Identity, Verification Badges & Profile -->
+<div class="flex items-center gap-space-md">
+<!-- DID Identity Chip -->
+<div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-surface-container border border-outline-variant rounded-lg">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium select-all">did:medchain:pat:8842...31e</span>
+<button class="text-secondary hover:text-primary transition-colors" title="Copy DID to clipboard">
+<span class="material-symbols-outlined text-[15px]">content_copy</span>
+</button>
+</div>
+<!-- Action Icons from JSON Blueprint -->
+<div class="flex items-center gap-1 border-l border-outline-variant pl-space-sm">
+<button class="w-9 h-9 flex items-center justify-center rounded-lg text-secondary hover:bg-surface-container-low hover:text-primary transition-colors relative" title="Notifications">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-error"></span>
+</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-lg text-secondary hover:bg-surface-container-low hover:text-primary transition-colors" title="Credential Security Seal">
+<span class="material-symbols-outlined text-[20px]">shield</span>
+</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-lg text-secondary hover:bg-surface-container-low hover:text-primary transition-colors" title="DID Wallet">
+<span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+</button>
+</div>
+<!-- Patient Profile Pill -->
+<div class="flex items-center gap-space-sm pl-2 border-l border-outline-variant">
+<img class="w-8 h-8 rounded-full border border-outline-variant object-cover shadow-xs" data-alt="A clean, clinical portrait headshot of Sarah Jenkins in soft daylight. The aesthetic is ultra-modern, crisp, and high-fidelity with a calm, sterile healthcare studio background in muted slate, white, and subtle teal tones. Pristine lighting, natural skin texture, highly professional and realistic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeFZD6bXkeoUF-a0Jhwp_3iYpDrrNWZNoq8fQP3piDv6nkGeCmVky6aQEI473EWAd1CrSNbuF93SZTzjt7rXx9TGDGXmeG7ZYPCnGju7ctElIo99o0Ens91KFXuE6wLwRNi4gUI9tjPZ9tKnQSJelC5XRICGbbkP1OuSwAL3rO8fN7h7FIfB8gDGOXmaTQ0zao-em0NwBNChK9r2KAjG_6H5lRhykvQOhMhx5FcVY"/>
+<div class="hidden xl:flex flex-col text-left">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Sarah Jenkins</span>
+<span class="font-label-sm text-label-sm text-secondary font-mono">Tier-1 Consent Verified</span>
+</div>
+</div>
+</div>
+</header>
+<!-- APP SHELL CONTAINER -->
+<div class="flex min-h-[calc(100vh-4rem)]">
+<!-- SIDE NAVIGATION BAR (Shared Component: SideNavBar Anchor) -->
+<aside class="fixed left-0 top-16 bottom-0 w-64 flex flex-col justify-between p-space-md z-40 bg-surface-container-lowest border-r border-outline-variant select-none hidden md:flex">
+<!-- Top Node / DID Badge Group -->
+<div class="space-y-space-md">
+<div class="p-3 bg-surface-container-low rounded-xl border border-outline-variant flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">health_and_safety</span>
+</div>
+<div class="overflow-hidden">
+<h2 class="font-headline-sm text-[14px] leading-tight font-semibold text-on-surface truncate">MedChain Node</h2>
+<p class="font-code-sm text-[11px] text-secondary truncate mt-0.5">DID:0x71C...3a9F (Node Validator)</p>
+</div>
+</div>
+<!-- Primary Navigation Tabs with Strict State Determination -->
+<nav class="space-y-1">
+<!-- Item 1: Ledger Overview -->
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span>Ledger Overview</span>
+</a>
+<!-- Item 2: Patient Health Records -->
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">folder_shared</span>
+<span>Patient Health Records</span>
+</a>
+<!-- Item 3: Clinical Encounters -->
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">medical_services</span>
+<span>Clinical Encounters</span>
+</a>
+<!-- Item 4: Smart Consent & Revocation (ACTIVE PAGE - style_active_navigation) -->
+<a class="flex items-center gap-space-sm px-space-md py-2.5 bg-primary-container text-on-primary-container rounded-lg font-label-md text-label-md border-l-4 border-primary shadow-xs" href="#">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+<span class="font-semibold">Smart Consent &amp; Revocation</span>
+</a>
+<!-- Item 5: Prescription Dispensing -->
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">medication</span>
+<span>Prescription Dispensing</span>
+</a>
+<!-- Item 6: Cryptographic Audit Trail -->
+<a class="flex items-center gap-space-sm px-space-md py-2.5 text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">history_edu</span>
+<span>Cryptographic Audit Trail</span>
+</a>
+</nav>
+<!-- Sidebar CTA Anchor from JSON -->
+<div class="pt-2">
+<button class="w-full flex items-center justify-center gap-2 py-2 px-3 bg-surface-container border border-outline-variant rounded-lg text-primary font-label-md text-label-md hover:bg-surface-container-high transition-colors font-medium">
+<span class="material-symbols-outlined text-[18px]">add_moderator</span>
+<span>Issue Cryptographic Record</span>
+</button>
+</div>
+</div>
+<!-- Footer Navigation Items from JSON -->
+<div class="pt-4 border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-space-sm px-space-md py-2 text-secondary rounded-lg font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span>Security Settings</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-2 text-secondary rounded-lg font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+<span class="font-code-sm text-code-sm">System Protocol v2.4</span>
+</a>
+</div>
+</aside>
+<!-- MAIN CONTENT VIEWPORT CANVAS -->
+<main class="flex-1 md:ml-64 p-space-md lg:p-space-lg xl:p-margin bg-background">
+<!-- BREADCRUMBS & TOP BAR -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-space-lg border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-2 text-secondary font-label-sm text-label-sm mb-1">
+<span>Patient Portal</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-primary font-medium">Consent &amp; Revocation Engine</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-on-surface">Section 2.6</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">
+            Decentralized Smart Consent &amp; Granular Access Control
+          </h1>
+<p class="font-body-md text-body-md text-secondary mt-1 max-w-4xl">
+            Cryptographically delegate or instantly revoke medical record access to healthcare providers and pharmacies. All authorization events are immutable and verifiable.
+          </p>
+</div>
+<!-- Primary Action CTA Button -->
+<div class="shrink-0 flex items-center gap-3">
+<button class="inline-flex items-center gap-2 px-4 h-10 bg-primary hover:bg-primary-dark active:bg-primary-darker text-on-primary rounded-lg font-label-lg text-label-lg font-medium shadow-xs transition-colors">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>+ Grant New Provider Consent</span>
+</button>
+</div>
+</div>
+<!-- HIGH-LEVEL METRIC SUMMARY CHIPS -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md mt-space-lg">
+<!-- Active Grants -->
+<div class="p-space-md bg-surface-container-lowest border border-outline-variant rounded-xl shadow-xs flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Active Consent Grants</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-headline-lg text-headline-lg font-bold text-primary">4</span>
+<span class="font-label-sm text-label-sm text-primary flex items-center font-medium">
+<span class="w-2 h-2 rounded-full bg-emerald-500 inline-block mr-1"></span> Live Verified
+              </span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">policy</span>
+</div>
+</div>
+<!-- Revoked Access -->
+<div class="p-space-md bg-surface-container-lowest border border-outline-variant rounded-xl shadow-xs flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Revoked Access</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-headline-lg text-headline-lg font-bold text-secondary">3</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">Keys Dropped</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">block</span>
+</div>
+</div>
+<!-- Break-Glass Protocol Status -->
+<div class="p-space-md bg-surface-container-lowest border border-outline-variant rounded-xl shadow-xs flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Break-Glass Protocol</span>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="font-headline-sm text-headline-sm font-semibold text-primary">Active</span>
+<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-label-sm text-[10px]">Guarded</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">emergency_home</span>
+</div>
+</div>
+<!-- Latest On-Chain Event -->
+<div class="p-space-md bg-surface-container-lowest border border-outline-variant rounded-xl shadow-xs flex items-center justify-between">
+<div class="overflow-hidden">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Latest On-Chain Event</span>
+<div class="mt-1 flex items-center gap-2">
+<span class="font-code-md text-code-md font-semibold text-on-surface truncate">Tx #0x82f...91c</span>
+<span class="text-secondary font-body-sm text-[11px] shrink-0">(2h ago)</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[20px]">enhanced_encryption</span>
+</div>
+</div>
+</section>
+<!-- ACTIVE TAB NAVIGATION -->
+<div class="flex items-center gap-space-lg mt-space-lg border-b border-outline-variant">
+<button class="pb-3 border-b-2 border-primary font-label-md text-label-md font-semibold text-primary flex items-center gap-2">
+<span>Active Consents</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-code-sm text-code-sm">4</span>
+</button>
+<button class="pb-3 border-b-2 border-transparent font-label-md text-label-md text-secondary hover:text-on-surface flex items-center gap-2 transition-colors">
+<span>Revocation History</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-secondary font-code-sm text-code-sm">3</span>
+</button>
+<button class="pb-3 border-b-2 border-transparent font-label-md text-label-md text-secondary hover:text-on-surface flex items-center gap-2 transition-colors">
+<span>Emergency Access (Break-Glass)</span>
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+</button>
+</div>
+<!-- MAIN DUAL-PANE INTERFACE: Quick Delegation Drawer & Live Consents -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mt-space-lg">
+<!-- LEFT COLUMN / QUICK GRANT MODULE (5 Cols) -->
+<div class="lg:col-span-5 space-y-space-md">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-xs">
+<div class="flex items-center justify-between pb-space-sm border-b border-outline-variant mb-space-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">assignment_turned_in</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Grant New Access Delegation</h3>
+</div>
+<span class="font-code-sm text-code-sm text-secondary">ERC-7212 Consent</span>
+</div>
+<!-- Grantee Type Selector Pills -->
+<div class="space-y-space-sm mb-space-md">
+<label class="block font-label-md text-label-md font-medium text-on-surface">1. Select Grantee Type</label>
+<div class="grid grid-cols-3 gap-2">
+<button class="py-2 px-2 rounded-lg border-2 border-primary bg-surface-container text-primary font-label-md text-label-md font-medium flex flex-col items-center gap-1 transition-all">
+<span class="material-symbols-outlined text-[18px]">medical_information</span>
+<span class="text-[11px] leading-tight text-center">Doctor / Physician</span>
+</button>
+<button class="py-2 px-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-secondary hover:border-outline font-label-md text-label-md flex flex-col items-center gap-1 transition-all">
+<span class="material-symbols-outlined text-[18px]">local_pharmacy</span>
+<span class="text-[11px] leading-tight text-center">Pharmacist</span>
+</button>
+<button class="py-2 px-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-secondary hover:border-outline font-label-md text-label-md flex flex-col items-center gap-1 transition-all">
+<span class="material-symbols-outlined text-[18px]">science</span>
+<span class="text-[11px] leading-tight text-center">Researcher</span>
+</button>
+</div>
+</div>
+<!-- Searchable Grantee Input Field -->
+<div class="space-y-space-xs mb-space-md">
+<label class="block font-label-md text-label-md font-medium text-on-surface">2. Grantee Identity (DID / Registry ID)</label>
+<div class="relative">
+<input class="w-full h-10 px-space-md bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-body-md" type="text" value="Dr. Sarah Vance, MD (Cardiology - St. Jude Medical)"/>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-primary text-[18px]">verified</span>
+</div>
+<p class="font-code-sm text-[11px] text-secondary">Verified Practitioner DID: did:medchain:npi:18820491a</p>
+</div>
+<!-- Granular Scope Selection Checkboxes -->
+<div class="space-y-space-sm mb-space-md">
+<label class="block font-label-md text-label-md font-medium text-on-surface">3. Granular Cryptographic Scope</label>
+<div class="space-y-2 bg-surface-container-low p-space-sm rounded-lg border border-outline-variant">
+<label class="flex items-center gap-3 cursor-pointer">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary border-outline-variant" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-medium text-on-surface">Full EHR Records</span>
+<span class="font-body-sm text-[11px] text-secondary">Includes diagnostic history, family health, and pathology</span>
+</div>
+</label>
+<label class="flex items-center gap-3 cursor-pointer">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary border-outline-variant" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-medium text-on-surface">E-Prescriptions Only</span>
+<span class="font-body-sm text-[11px] text-secondary">Delegates zero-knowledge token validation for dispensing</span>
+</div>
+</label>
+<label class="flex items-center gap-3 cursor-pointer">
+<input class="w-4 h-4 rounded text-primary focus:ring-primary border-outline-variant" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-medium text-on-surface">Lab &amp; Diagnostic Panels</span>
+<span class="font-body-sm text-[11px] text-secondary">Biochemical scans, lipid profiles, and blood analysis</span>
+</div>
+</label>
+<label class="flex items-center gap-3 cursor-pointer">
+<input class="w-4 h-4 rounded text-primary focus:ring-primary border-outline-variant" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-medium text-on-surface">Historical Vitals</span>
+<span class="font-body-sm text-[11px] text-secondary">IoT blood pressure, glucose stream, and wearable stats</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Expiration Setting Selector -->
+<div class="space-y-space-xs mb-space-lg">
+<label class="block font-label-md text-label-md font-medium text-on-surface">4. Delegation Time-to-Live (TTL)</label>
+<div class="grid grid-cols-4 gap-1.5">
+<button class="py-1.5 px-2 rounded-lg border border-outline-variant text-center font-label-sm text-label-sm text-secondary hover:border-primary hover:text-primary transition-all">
+                  30 Days
+                </button>
+<button class="py-1.5 px-2 rounded-lg border-2 border-primary bg-surface-container font-label-sm text-label-sm font-semibold text-primary transition-all">
+                  90 Days
+                </button>
+<button class="py-1.5 px-2 rounded-lg border border-outline-variant text-center font-label-sm text-label-sm text-secondary hover:border-primary hover:text-primary transition-all">
+                  1 Year
+                </button>
+<button class="py-1.5 px-2 rounded-lg border border-outline-variant text-center font-label-sm text-label-sm text-secondary hover:border-primary hover:text-primary transition-all">
+                  Single Encounter
+                </button>
+</div>
+</div>
+<!-- Sign & Commit Ledger Action -->
+<button class="w-full h-11 bg-primary hover:bg-primary-dark active:bg-primary-darker text-on-primary rounded-lg font-label-lg text-label-lg font-medium flex items-center justify-center gap-2 shadow-xs transition-colors">
+<span class="material-symbols-outlined text-[20px]">key</span>
+<span>Sign &amp; Authorize Delegation on Ledger</span>
+</button>
+<p class="font-code-sm text-[10px] text-secondary text-center mt-2">
+              Requires WebAuthn / FaceID credential signature. Gas cost: 0.00018 MED
+            </p>
+</div>
+<!-- Secondary Help Card: Decentralized Policy Guarantees -->
+<div class="p-space-md bg-surface-container-low border border-outline-variant rounded-xl flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5">verified_user</span>
+<div>
+<h4 class="font-label-md text-label-md font-semibold text-on-surface">Cryptographic Consent Revocation Guarantee</h4>
+<p class="font-body-sm text-[12px] text-secondary mt-1">
+                Revocations are executed using threshold re-encryption proxy contracts. When revoked, node validators erase ephemeral key shares immediately.
+              </p>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN / EXISTING CONSENTS CARD LIST (7 Cols) -->
+<div class="lg:col-span-7 space-y-space-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface flex items-center gap-2">
+<span>Active Granular Consents</span>
+<span class="text-secondary font-label-sm text-label-sm font-normal">Showing 4 authorizations</span>
+</h3>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 text-secondary hover:text-primary border border-outline-variant rounded-lg font-label-sm text-label-sm flex items-center gap-1 bg-surface-container-lowest">
+<span class="material-symbols-outlined text-[14px]">filter_list</span>
+<span>Filter</span>
+</button>
+<button class="px-2.5 py-1 text-secondary hover:text-primary border border-outline-variant rounded-lg font-label-sm text-label-sm flex items-center gap-1 bg-surface-container-lowest">
+<span class="material-symbols-outlined text-[14px]">download</span>
+<span>Export Ledger Log</span>
+</button>
+</div>
+</div>
+<!-- Card 1: Dr. Sarah Vance, MD -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md shadow-xs ledger-accent-teal space-y-3 hover:border-primary transition-colors">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary shrink-0 font-semibold font-headline-sm text-[14px]">
+                  SV
+                </div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-headline-sm text-[15px] font-bold text-on-surface">Dr. Sarah Vance, MD</h4>
+<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-label-sm text-[11px] font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                      Active
+                    </span>
+</div>
+<p class="font-label-sm text-label-sm text-secondary">Attending Physician · St. Jude Medical</p>
+</div>
+</div>
+<!-- Immediate Revoke Action -->
+<button class="self-start sm:self-auto px-3 py-1.5 rounded-lg border border-red-200 bg-red-50 text-error hover:bg-red-100 font-label-md text-label-md font-medium flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px]">lock_reset</span>
+<span>Revoke Access</span>
+</button>
+</div>
+<!-- Granular Metadata Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-2 py-2 px-3 bg-surface-container-low rounded-lg text-body-sm">
+<div>
+<span class="block font-label-sm text-[10px] text-secondary uppercase font-semibold">Scope Granted</span>
+<span class="font-label-md text-label-md text-on-surface font-medium">Full Records &amp; E-Prescriptions</span>
+</div>
+<div>
+<span class="block font-label-sm text-[10px] text-secondary uppercase font-semibold">Granted / Validity</span>
+<span class="font-body-sm text-[12px] text-on-surface">Oct 12, 2024 · Valid until Dec 31, 2024</span>
+</div>
+<div>
+<span class="block font-label-sm text-[10px] text-secondary uppercase font-semibold">On-Chain Audit Tx</span>
+<a class="font-code-sm text-code-sm text-primary hover:underline flex items-center gap-1 mt-0.5" href="#explorer">
+<span>0x77b...12a</span>
+<span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Card 2: Dr. Michael Wu, MD -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md shadow-xs ledger-accent-teal space-y-3 hover:border-primary transition-colors">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary shrink-0 font-semibold font-headline-sm text-[14px]">
+                  MW
+                </div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-headline-sm text-[15px] font-bold text-on-surface">Dr. Michael Wu, MD</h4>
+<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-label-sm text-[11px] font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                      Active
+                    </span>
+</div>
+<p class="font-label-sm text-label-sm text-secondary">Cardiologist · Metro Heart Institute</p>
+</div>
+</div>
+<!-- Immediate Revoke Action -->
+<button class="self-start sm:self-auto px-3 py-1.5 rounded-lg border border-red-200 bg-red-50 text-error hover:bg-red-100 font-label-md text-label-md font-medium flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px]">lock_reset</span>
+<span>Revoke Access</span>
+</button>
+</div>
+<!-- Granular Metadata Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-2 py-2 px-3 bg-surface-container-low rounded-lg text-body-sm">
+<div>
+<span class="block font-label-sm text-[10px] text-secondary uppercase font-semibold">Scope Granted</span>
+<span class="font-label-md text-label-md text-on-surface font-medium">Cardiac Stress &amp; ECG Panels</span>
+</div>
+<div>
+<span class="block font-label-sm text-[10px] text-secondary uppercase font-semibold">Granted / Validity</span>
+<span class="font-body-sm text-[12px] text-on-surface">Sep 10, 2024 · Valid until Nov 10, 2024</span>
+</div>
+<div>
+<span class="block font-label-sm text-[10px] text-secondary uppercase font-semibold">On-Chain Audit Tx</span>
+<a class="font-code-sm text-code-sm text-primary hover:underline flex items-center gap-1 mt-0.5" href="#explorer">
+<span>0x3f2...a11</span>
+<span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Card 3: Walgreens Pharmacy Node #4120 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md shadow-xs ledger-accent-teal space-y-3 hover:border-primary transition-colors">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container shrink-0">
+<span class="material-symbols-outlined text-[20px]">local_pharmacy</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-headline-sm text-[15px] font-bold text-on-surface">Walgreens Pharmacy Node #4120</h4>
+<span class="px-2 py-0.5 rounded-full bg-teal-50 text-teal-800 border border-teal-200 font-label-sm text-[11px] font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-teal-600 animate-pulse"></span>
+                      Session Active
+                    </span>
+</div>
+<p class="font-label-sm text-label-sm text-secondary">Authorized Dispenser Endpoint</p>
+</div>
+</div>
+<!-- Immediate Revoke Action -->
+<button class="self-start sm:self-auto px-3 py-1.5 rounded-lg border border-red-200 bg-red-50 text-error hover:bg-red-100 font-label-md text-label-md font-medium flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px]">lock_reset</span>
+<span>Revoke Access</span>
+</button>
+</div>
+<!-- Granular Metadata Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-2 py-2 px-3 bg-surface-container-low rounded-lg text-body-sm">
+<div>
+<span class="block font-label-sm text-[10px] text-secondary uppercase font-semibold">Scope Granted</span>
+<span class="font-label-md text-label-md text-on-surface font-medium">E-Prescription Token #MC-8849 Only</span>
+<span class="font-code-sm text-[10px] text-primary block mt-0.5">Zero-Knowledge read</span>
+</div>
+<div>
+<span class="block font-label-sm text-[10px] text-secondary uppercase font-semibold">Granted / Validity</span>
+<span class="font-body-sm text-[12px] text-on-surface">Oct 24, 2024 · Single Session (24h TTL)</span>
+</div>
+<div>
+<span class="block font-label-sm text-[10px] text-secondary uppercase font-semibold">On-Chain Audit Tx</span>
+<a class="font-code-sm text-code-sm text-primary hover:underline flex items-center gap-1 mt-0.5" href="#explorer">
+<span>0x19a...55e</span>
+<span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Card 4: Dr. Robert Chen, MD (Expired State) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md shadow-xs ledger-accent-neutral space-y-3 opacity-90">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-secondary shrink-0 font-semibold font-headline-sm text-[14px]">
+                  RC
+                </div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-headline-sm text-[15px] font-bold text-on-surface">Dr. Robert Chen, MD</h4>
+<span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-300 font-label-sm text-[11px] font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+                      Expired
+                    </span>
+</div>
+<p class="font-label-sm text-label-sm text-secondary">Endocrinologist · St. Jude Endocrinology</p>
+</div>
+</div>
+<!-- Renew Access Action -->
+<button class="self-start sm:self-auto px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-lowest text-primary hover:bg-surface-container font-label-md text-label-md font-medium flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px]">autorenew</span>
+<span>Renew Access</span>
+</button>
+</div>
+<!-- Granular Metadata Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-2 py-2 px-3 bg-surface-container-low rounded-lg text-body-sm">
+<div>
+<span class="block font-label-sm text-[10px] text-secondary uppercase font-semibold">Scope Granted</span>
+<span class="font-label-md text-label-md text-secondary font-medium">Lab Panels &amp; Vitals History</span>
+</div>
+<div>
+<span class="block font-label-sm text-[10px] text-secondary uppercase font-semibold">Granted / Validity</span>
+<span class="font-body-sm text-[12px] text-secondary">Aug 15, 2024 · Expired Oct 15, 2024</span>
+</div>
+<div>
+<span class="block font-label-sm text-[10px] text-secondary uppercase font-semibold">On-Chain Audit Tx</span>
+<a class="font-code-sm text-code-sm text-secondary hover:underline flex items-center gap-1 mt-0.5" href="#explorer">
+<span>0x44a...cc9</span>
+<span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- CRYPTOGRAPHIC AUDIT BANNER (Bottom Banner) -->
+<footer class="mt-space-xl p-space-md bg-surface-container-lowest border border-outline-variant rounded-xl shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">security_update_good</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary">
+<span class="font-semibold text-on-surface">Cryptographic Enforcement Engine:</span>
+            Every revocation instantly drops cryptographic decryption keys across distributed node caches. No orphan decrypt keys remain in peer relays.
+          </p>
+</div>
+<div class="flex items-center gap-4 shrink-0">
+<span class="font-code-sm text-code-sm text-secondary">Smart Contract: 0x904...F4B3</span>
+<a class="font-label-md text-label-md text-primary font-semibold hover:underline flex items-center gap-1" href="#verify">
+<span>Verify Relays</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</footer>
+</main>
+</div>
+</body></html>
